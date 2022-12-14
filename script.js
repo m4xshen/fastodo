@@ -1,56 +1,62 @@
 const todolist = document.getElementById('todolist');
+const template = document.getElementsByTagName('template')[0];
 
 class Todo {
   constructor(content, tag) {
-    this.checked = false;
-    this.content = content;
     this.tag = tag;
+    this.content = content; // debug
 
     this.element = document.createElement('div');
     this.element.className = 'todo';
+    this.element.innerHTML = template.innerHTML;
+    this.element.querySelector('.content').innerHTML = content;
 
-    this. checkboxElement = document.createElement('button');
-    this.checkboxElement.className = 'checkbox'
-    this.checkboxElement.setAttribute('checked', 'false');
-    this.element.appendChild(this.checkboxElement);
+    this.checkbox = this.element.querySelector('.checkbox');
+    this.svg = this.element.querySelector('svg');
 
-    const contentElement = document.createElement('div');
-    contentElement.className = 'content'
-    contentElement.innerHTML = content;
-    this.element.appendChild(contentElement);
-  }
-
-  update() {
-    todolist.appendChild(this.element);
+    addEvent(this);
   }
 }
 
-const todos = [];
+const uncheckedTodo = [];
+const checkedTodo = [];
 
 function update() {
-  todos.forEach((todo) => {
-    todo.checkboxElement.onclick = function() {
-      if(todo.checkboxElement.getAttribute('checked') == 'true') {
-        todo.checkboxElement.setAttribute('checked', 'false');
-      }
-      else {
-        todo.checkboxElement.setAttribute('checked', 'true');
-      }
-
-      todos.push(todos.splice(todos.indexOf(todo), 1)[0]);
-
-      todolist.innerHTML = '';
-      todos.forEach((todo) => todo.update());
-    }
+  uncheckedTodo.forEach((todo) => {
+    todolist.append(todo.element);
   });
-  todos.forEach((todo) => todo.update());
+  checkedTodo.forEach((todo) => {
+    todolist.append(todo.element);
+  });
+}
+
+function addEvent(todo) {
+  todo.checkbox.onclick = function() {
+    if(todo.checkbox.getAttribute('checked') == 'false') {
+      todo.checkbox.setAttribute('checked', 'true');
+      todo.svg.setAttribute('checked', 'true');
+
+      uncheckedTodo.splice(uncheckedTodo.indexOf(todo), 1);
+      checkedTodo.push(todo);
+    }
+    else {
+      todo.checkbox.setAttribute('checked', 'false');
+      todo.svg.setAttribute('checked', 'false');
+
+      checkedTodo.splice(checkedTodo.indexOf(todo), 1);
+      uncheckedTodo.push(todo);
+    }
+
+    update();
+  }
 }
 
 const newtodo = document.getElementById('newtodo');
 newtodo.addEventListener('keydown', (event) => {
   if(event.code=='Enter' && newtodo.value!='') {
-    todos.unshift(new Todo(newtodo.value));
+    uncheckedTodo.push(new Todo(newtodo.value));
     newtodo.value = '';
-    update();
+
+    uncheckedTodo.forEach((todo) => todolist.prepend(todo.element));
   }
 });

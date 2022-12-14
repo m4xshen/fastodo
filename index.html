@@ -9,6 +9,20 @@
     <h1 id="title">/* TODO */</h1>
     <input type="text" id="newtodo" placeholder="Add Todo"></input>
     <div id="todolist"></div>
+
+    <!-- todo template -->
+    <template>
+      <div class="todo">
+        <button class="checkbox" checked="false">
+          <svg width="10" height="10" checked="false">
+            <path stroke="black" fill="transparent" d="M 1 3 L 4 7 L 8 0">
+            </path>
+          </svg>
+        </button>
+        <div class="content"></div>
+      </div>
+    </template>
+
     <script src="script.js"></script>
   </body>
 </html>

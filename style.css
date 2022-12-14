@@ -58,6 +58,18 @@ body {
   gap: 10px;
 }
 
+svg {
+  background-color: #a2a2a2;
+}
+
+svg[checked = 'false'] {
+  visibility: hidden;
+}
+
+svg[checked = true] {
+  visibility: visible;
+}
+
 .checkbox {
   width: 18px;
   height: 18px;
