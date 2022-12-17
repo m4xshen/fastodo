@@ -12,7 +12,7 @@
 }
 
 body {
-  margin: 50px;
+  margin: 0;
 }
 
 #title {
@@ -23,28 +23,63 @@ body {
   text-align: center;
 }
 
-#newtodo {
-  color: #a2a2a2;
-  background-color: var(--todo-background);
-  width: 500px;
-  height: 50px;
-  line-height: 50px;
-  padding: 10px;
-  border-style: none;
-  outline: none;
-  border-radius: 8px;
-  display: block;
-  margin-left: 326px;
-  margin-bottom: 15px;
-}
-
 #todolist {
-  margin: auto;
-  width: 500px;
+  margin: 0 auto;
+  width: 520px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 15px;
+}
+
+#newtodo {
+  color: #a2a2a2;
+  background-color: var(--todo-background);
+  width: 500px;
+  line-height: 50px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  max-height: 50px;
+  transition: max-height 0.5s ease-in-out;
+}
+
+#newtodo * {
+  background-color: var(--todo-background);
+}
+
+#priority {
+  display: flex;
+}
+
+#priority input {
+  margin-left: 60px;
+}
+
+label {
+  margin-left: 2px;
+  color: #a2a2a2;
+}
+
+input {
+  line-height: 50px;
+  border-style: none;
+  outline: none;
+}
+
+#priority #high {
+  accent-color: #ff0000;
+}
+
+#priority #mid {
+  accent-color: #ffff00;
+}
+
+#priority #low {
+  accent-color: #a2a2a2;
 }
 
 .todo {
@@ -55,22 +90,26 @@ body {
   height: 50px;
   padding: 10px;
   border-radius: 8px;
+  justify-content: start;
   gap: 10px;
 }
 
 svg {
   background-color: #a2a2a2;
+  pointer-events: none;
 }
 
 svg[checked = 'false'] {
   visibility: hidden;
 }
 
-svg[checked = true] {
+svg[checked = 'true'] {
   visibility: visible;
 }
 
 .checkbox {
+  padding: 0;
+  margin: 0;
   width: 18px;
   height: 18px;
   border: 1px solid #a2a2a2;
@@ -90,4 +129,12 @@ svg[checked = true] {
   background-color: var(--todo-background);
   font-weight: 400;
   display: inline-block;
+}
+
+.content[checked = 'false'] {
+  color: #ffffff;
+}
+
+.content[checked = 'true'] {
+  color: #a2a2a2;
 }
