@@ -6,29 +6,29 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1 id="title">/* TODO */</h1>
-    <div id="todolist">
-      <div id="newtodo">
-        <input type="text" id="content" placeholder="Add Todo"></input>
+    <h1 class="project-name">/* TODO */</h1>
+    <div class="todo-list">
+      <div class="todo-creator">
+        <input type="text" class="input-name" placeholder="Add Todo"></input>
       </div>
     </div>
 
     <!-- todo template -->
-    <template id="todo-title-template">
+    <template class="todo-title-template">
       <div class="todo-title">
-        <button class="checkbox" checked="false">
+        <button class="todo-checkbox" checked="false">
           <svg width="10" height="10" checked="false">
             <path stroke="black" fill="transparent" d="M 1 3 L 4 7 L 8 0">
             </path>
           </svg>
         </button>
-        <input type="text" class="content" placeholder="Add Todo"></input>
+        <input type="text" class="todo-name" placeholder="Add Todo"></input>
       </div>
     </template>
 
     <!-- card template -->
-    <template id="todo-info-template">
-      <div class="priority">
+    <template class="todo-info-template">
+      <div class="todo-priority">
         <label>Priority</label>
         <input type="radio" class="high">High</input>
         <input type="radio" class="mid">Mid</input>
@@ -36,7 +36,7 @@
       </div>
       <div>
         <label>Tag</label>
-        <input type="text" class="tag"></input>
+        <input type="text" class="todo-tag"></input>
       </div>
     </template>
 

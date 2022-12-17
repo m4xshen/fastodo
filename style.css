@@ -2,6 +2,7 @@
 
 :root {
   --todo-background: #252525;
+  --todo-gray: #a2a2a2;
 }
 
 * {
@@ -15,7 +16,7 @@ body {
   margin: 0;
 }
 
-#title {
+.project-name {
   font-family: 'Source Code Pro', monospace;
   font-weight: 800;
   font-size: 50px;
@@ -23,7 +24,7 @@ body {
   text-align: center;
 }
 
-#todolist {
+.todo-list {
   margin: 0 auto;
   width: 520px;
   display: flex;
@@ -32,8 +33,8 @@ body {
   gap: 15px;
 }
 
-#newtodo {
-  color: #a2a2a2;
+.todo-creator {
+  color: var(--todo-gray);
   background-color: var(--todo-background);
   width: 500px;
   line-height: 50px;
@@ -47,47 +48,46 @@ body {
   transition: max-height 0.5s ease-in-out;
 }
 
-#newtodo * {
+.todo-creator * {
   background-color: var(--todo-background);
 }
 
-label {
+.todo-list label {
   margin-left: 2px;
-  color: #a2a2a2;
 }
 
-input {
+.todo-list input {
   line-height: 50px;
   border-style: none;
   outline: none;
 }
 
-.tag {
+.todo-tag {
   padding-left: 80px;
 }
 
-.priority {
+.todo-priority {
   display: flex;
 }
 
-.priority input {
+.todo-priority input {
   margin-left: 60px;
 }
 
-.priority .high {
+.todo-priority .high {
   accent-color: #f38ba8;
 }
 
-.priority .mid {
+.todo-priority .mid {
   accent-color: #f9e2af;
 }
 
-.priority .low {
-  accent-color: #a2a2a2;
+.todo-priority .low {
+  accent-color: var(--todo-gray);
 }
 
 .todo {
-  color: #a2a2a2;
+  color: var(--todo-gray);
   background-color: var(--todo-background);
   width: 500px;
   line-height: 50px;
@@ -113,48 +113,48 @@ input {
   gap: 10px;
 }
 
-svg {
-  background-color: transparent;
-  pointer-events: none;
-}
-
-svg[checked = 'false'] {
-  visibility: hidden;
-}
-
-svg[checked = 'true'] {
-  visibility: visible;
-}
-
-.checkbox {
+.todo-checkbox {
   padding: 0;
   margin: 0;
   width: 18px;
   height: 18px;
-  border: 1px solid #a2a2a2;
+  border: 1px solid var(--todo-gray);
   border-radius: 50%;
   cursor: pointer;
 }
 
-.checkbox[checked = 'false'] {
+.todo-checkbox[checked = 'false'] {
   background-color: var(--todo-background);
 }
 
-.checkbox[checked = 'true'] {
+.todo-checkbox[checked = 'true'] {
   background-color: var(--checkbox-background);
 }
 
-.content {
+.todo-checkbox svg {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.todo-checkbox svg[checked = 'false'] {
+  visibility: hidden;
+}
+
+.todo-checkbox svg[checked = 'true'] {
+  visibility: visible;
+}
+
+.todo-name {
   background-color: var(--todo-background);
   font-weight: 400;
   display: inline-block;
   pointer-events: none;
 }
 
-.content[checked = 'false'] {
+.todo-name[checked = 'false'] {
   color: #ffffff;
 }
 
-.content[checked = 'true'] {
-  color: #a2a2a2;
+.todo-name[checked = 'true'] {
+  color: var(--todo-gray);
 }
