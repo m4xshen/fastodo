@@ -51,14 +51,6 @@ body {
   background-color: var(--todo-background);
 }
 
-#priority {
-  display: flex;
-}
-
-#priority input {
-  margin-left: 60px;
-}
-
 label {
   margin-left: 2px;
   color: #a2a2a2;
@@ -70,32 +62,59 @@ input {
   outline: none;
 }
 
-#priority #high {
-  accent-color: #ff0000;
+.tag {
+  padding-left: 80px;
 }
 
-#priority #mid {
-  accent-color: #ffff00;
+.priority {
+  display: flex;
 }
 
-#priority #low {
+.priority input {
+  margin-left: 60px;
+}
+
+.priority .high {
+  accent-color: #f38ba8;
+}
+
+.priority .mid {
+  accent-color: #f9e2af;
+}
+
+.priority .low {
   accent-color: #a2a2a2;
 }
 
 .todo {
+  color: #a2a2a2;
+  background-color: var(--todo-background);
+  width: 500px;
+  line-height: 50px;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+  max-height: 50px;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.todo *:not(svg) {
+  background-color: var(--todo-background);
+}
+
+.todo-title {
   display: flex;
   align-items: center;
   background-color: var(--todo-background);
-  width: 500px;
-  height: 50px;
-  padding: 10px;
-  border-radius: 8px;
   justify-content: start;
   gap: 10px;
 }
 
 svg {
-  background-color: #a2a2a2;
+  background-color: transparent;
   pointer-events: none;
 }
 
@@ -122,13 +141,14 @@ svg[checked = 'true'] {
 }
 
 .checkbox[checked = 'true'] {
-  background-color: #a2a2a2;
+  background-color: var(--checkbox-background);
 }
 
 .content {
   background-color: var(--todo-background);
   font-weight: 400;
   display: inline-block;
+  pointer-events: none;
 }
 
 .content[checked = 'false'] {

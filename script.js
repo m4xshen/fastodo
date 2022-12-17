@@ -1,36 +1,104 @@
 const todolist = document.getElementById('todolist');
-const template = document.getElementsByTagName('template')[0];
+let id = 1;
 
 class Todo {
   constructor(content, priority, tag) {
     this.priority = priority;
-    this.tag = tag;
 
+    // create todo
     this.element = document.createElement('div');
     this.element.className = 'todo';
-    this.element.innerHTML = template.innerHTML;
+    this.element.innerHTML =
+      document.getElementById('todo-title-template').innerHTML +
+      document.getElementById('todo-info-template').innerHTML;
 
     this.content = this.element.querySelector('.content');
-    this.content.innerHTML = content;
+    this.content.value = content;
     this.content.setAttribute('checked', 'false');
 
+    this.element.querySelector('.tag').value = tag;
+
+    // set checkbox color according to priority
     this.checkbox = this.element.querySelector('.checkbox');
-    if(priority == 'high') {
-      this.checkbox.style.borderColor = 'red';
-    }
-    else if(priority == 'mid') {
-      this.checkbox.style.borderColor = 'yellow';
-    }
+
+    this.element.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.name = id;
+      radio.addEventListener('change', (event) => {
+        this.priority = event.target.className;
+        this.update();
+      })
+    });
+    id++;
+
+    this.element.querySelector(`.${priority}`).checked = true;
 
     this.svg = this.element.querySelector('svg');
 
-    addEvent(this);
+    this.update();
+    this.addEvent();
+  }
+
+  update() {
+    if(this.priority == 'high') {
+      this.checkbox.style.borderColor = '#f38ba8';
+      this.checkbox.style.setProperty('--checkbox-background', '#f38ba8');
+    }
+    else if(this.priority == 'mid') {
+      this.checkbox.style.borderColor = '#f9e2af';
+      this.checkbox.style.setProperty('--checkbox-background', '#f9e2af');
+    }
+    else {
+      this.checkbox.style.borderColor = '#a2a2a2';
+      this.checkbox.style.setProperty('--checkbox-background', '#a2a2a2');
+    }
+  }
+
+  addEvent() {
+    // expand todo
+    this.element.addEventListener('click', (event) => {
+      if(event.target != this.checkbox) {
+        this.element.style.maxHeight = '210px';
+        this.content.style.pointerEvents = 'auto'; 
+      }
+    });
+
+    // shrink todo
+    document.addEventListener('click', (event) => {
+      if(event.target != this.element &&
+        !this.element.contains(event.target)) {
+        this.element.style.maxHeight = '50px';
+        this.content.style.pointerEvents = 'none'; 
+      }
+    });
+
+    // toggle checkbox
+    this.checkbox.addEventListener('click', () => {
+      if(this.checkbox.getAttribute('checked') == 'false') {
+        this.checkbox.setAttribute('checked', 'true');
+        this.svg.setAttribute('checked', 'true');
+        this.content.setAttribute('checked', 'true');
+
+        uncheckedTodo.splice(uncheckedTodo.indexOf(this), 1);
+        checkedTodo.push(this);
+      }
+      else {
+        this.checkbox.setAttribute('checked', 'false');
+        this.svg.setAttribute('checked', 'false');
+        this.content.setAttribute('checked', 'false');
+
+        checkedTodo.splice(checkedTodo.indexOf(this), 1);
+        uncheckedTodo.push(this);
+      }
+
+      update();
+    });
   }
 }
 
 const uncheckedTodo = [];
 const checkedTodo = [];
 
+// update the todo list
 function update() {
   checkedTodo.forEach((todo) => {
     todolist.insertBefore(todo.element, newtodo.nextSibling);
@@ -40,33 +108,16 @@ function update() {
   });
 }
 
-function addEvent(todo) {
-  // toggle state when checkbox is clicked
-  todo.checkbox.onclick = function() {
-    if(todo.checkbox.getAttribute('checked') == 'false') {
-      todo.checkbox.setAttribute('checked', 'true');
-      todo.svg.setAttribute('checked', 'true');
-      todo.content.setAttribute('checked', 'true');
-
-      uncheckedTodo.splice(uncheckedTodo.indexOf(todo), 1);
-      checkedTodo.push(todo);
-    }
-    else {
-      todo.checkbox.setAttribute('checked', 'false');
-      todo.svg.setAttribute('checked', 'false');
-      todo.content.setAttribute('checked', 'false');
-
-      checkedTodo.splice(checkedTodo.indexOf(todo), 1);
-      uncheckedTodo.push(todo);
-    }
-
-    update();
-  }
-}
-
 const newtodo = document.getElementById('newtodo');
+newtodo.innerHTML += document.getElementById('todo-info-template').innerHTML;
+newtodo.querySelector('.low').checked = true;
+
+// set the same name to avoid multiple choice
+newtodo.querySelectorAll('input[type="radio"]').forEach(radio => {
+  radio.name = 0;
+});
+
 const content = document.getElementById('content');
-const tag = document.getElementById('tag');
 
 // expand the newtodo
 content.addEventListener('focus', () => {
@@ -84,10 +135,16 @@ document.addEventListener('click', (event) => {
 newtodo.addEventListener('keydown', (event) => {
   if(event.code=='Enter' && content.value!='') {
     const priority = newtodo.querySelector('input[type="radio"]:checked');
-    uncheckedTodo.push(new Todo(content.value, priority.id, tag.value));
+    const tag = newtodo.querySelector('.tag');
+
+    // add a new todo
+    console.log(tag.value);
+    uncheckedTodo.push(new Todo(content.value, priority.className, tag.value));
+
+    // reset the value after adding a new todo
     content.value = '';
-    const lowPriority = document.getElementById('low');
-    lowPriority.checked = true;
+    priority.checked = false;
+    newtodo.querySelector('.low').checked = true;
     tag.value = '';
 
     uncheckedTodo.forEach((todo) =>

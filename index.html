@@ -10,25 +10,34 @@
     <div id="todolist">
       <div id="newtodo">
         <input type="text" id="content" placeholder="Add Todo"></input>
-        <div id="priority">
-          <label>Priority</label>
-          <input type="radio" name="priority" id="high">High</input>
-          <input type="radio" name="priority" id="mid">Mid</input>
-          <input type="radio" name="priority" id="low" checked>Low</input>
-        </div>
-        <input type="text" id="tag" placeholder="Add Tag"></input>
       </div>
     </div>
 
     <!-- todo template -->
-    <template>
-      <button class="checkbox" checked="false">
-        <svg width="10" height="10" checked="false">
-          <path stroke="black" fill="transparent" d="M 1 3 L 4 7 L 8 0">
-          </path>
-        </svg>
-      </button>
-      <div class="content"></div>
+    <template id="todo-title-template">
+      <div class="todo-title">
+        <button class="checkbox" checked="false">
+          <svg width="10" height="10" checked="false">
+            <path stroke="black" fill="transparent" d="M 1 3 L 4 7 L 8 0">
+            </path>
+          </svg>
+        </button>
+        <input type="text" class="content" placeholder="Add Todo"></input>
+      </div>
+    </template>
+
+    <!-- card template -->
+    <template id="todo-info-template">
+      <div class="priority">
+        <label>Priority</label>
+        <input type="radio" class="high">High</input>
+        <input type="radio" class="mid">Mid</input>
+        <input type="radio" class="low">Low</input>
+      </div>
+      <div>
+        <label>Tag</label>
+        <input type="text" class="tag"></input>
+      </div>
     </template>
 
     <script src="script.js"></script>
