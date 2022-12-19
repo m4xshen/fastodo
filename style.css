@@ -17,11 +17,20 @@ body {
 }
 
 .project-name {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.project-name * {
   font-family: 'Source Code Pro', monospace;
   font-weight: 800;
   font-size: 50px;
   font-style: italic;
-  text-align: center;
+}
+
+.highlight {
+  background-color: #f9e2af;
+  color: #141414;
 }
 
 .flex-row {
@@ -64,6 +73,11 @@ body {
   margin-bottom: 10px;
   flex-shrink: 0;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.sort-list > button:hover {
+  background-color: #505050;
 }
 
 .todo-list {
@@ -104,6 +118,10 @@ body {
 
 .todo-creator-tag {
   padding-left: 80px;
+}
+
+.prefix {
+  text-align: right;
 }
 
 .todo-tag {
