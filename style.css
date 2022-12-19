@@ -102,8 +102,15 @@ body {
   outline: none;
 }
 
-.todo-tag {
+.todo-creator-tag {
   padding-left: 80px;
+}
+
+.todo-tag {
+  color: var(--todo-gray);
+  font-size: 13px;
+  text-align: right;
+  pointer-events: none;
 }
 
 .todo-priority {
@@ -158,7 +165,7 @@ body {
   margin: 0;
   width: 18px;
   height: 18px;
-  border: 2px solid var(--todo-gray);
+  border: 1.5px solid var(--todo-gray);
   border-radius: 50%;
   cursor: pointer;
 }

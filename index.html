@@ -20,14 +20,12 @@
       </div>
 
       <div class="todo-list">
-        <div class="todo-creator">
-          <input type="text" class="input-name" placeholder="Add Todo"></input>
-        </div>
+        <div class="todo-creator"></div>
       </div>
     </div>
 
     <!-- todo template -->
-    <template class="todo-title-template">
+    <template class="todo-template">
       <div class="todo-title">
         <button class="todo-checkbox" checked="false">
           <svg width="10" height="10" checked="false">
@@ -35,21 +33,29 @@
             </path>
           </svg>
         </button>
-        <input type="text" class="todo-name" placeholder="Add Todo"></input>
+        <input type="text" class="todo-name" placeholder="Todo Name"></input>
+        <input type="text" class="todo-tag"></input>
       </div>
-    </template>
-
-    <!-- card template -->
-    <template class="todo-info-template">
       <div class="todo-priority">
         <label>Priority</label>
         <input type="radio" class="high">High</input>
         <input type="radio" class="mid">Mid</input>
         <input type="radio" class="low">Low</input>
       </div>
+    </template>
+
+    <!-- todo creator template -->
+    <template class="todo-creator-template">
+      <input type="text" class="input-name" placeholder="Add Todo"></input>
+      <div class="todo-priority">
+        <label>Priority</label>
+        <input type="radio" class="high">High</input>
+        <input type="radio" class="mid">Mid</input>
+        <input type="radio" class="low" checked>Low</input>
+      </div>
       <div>
         <label>Tag</label>
-        <input type="text" class="todo-tag"></input>
+        <input type="text" class="todo-creator-tag"></input>
       </div>
     </template>
 

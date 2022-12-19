@@ -7,9 +7,8 @@ class TodoList {
     this.checkedTodo = [];
 
     this.todoCreator = document.querySelector('.todo-creator');
-    this.todoCreator.innerHTML +=
-        document.querySelector('.todo-info-template').innerHTML;
-    this.todoCreator.querySelector('.low').checked = true;
+    this.todoCreator.innerHTML =
+        document.querySelector('.todo-creator-template').innerHTML;
 
     // set the same name to avoid multiple choice
     this.todoCreator.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -36,7 +35,7 @@ class TodoList {
       if(event.code=='Enter' && inputName.value!='') {
         const priority =
             this.todoCreator.querySelector('input[type="radio"]:checked');
-        const todoTag = this.todoCreator.querySelector('.todo-tag');
+        const todoTag = this.todoCreator.querySelector('.todo-creator-tag');
 
         // create a new todo
         this.uncheckedTodo.push(new Todo(
@@ -93,20 +92,19 @@ class Todo {
     // create todo
     this.element = document.createElement('div');
     this.element.className = 'todo';
-    this.element.innerHTML =
-        document.querySelector('.todo-title-template').innerHTML +
-        document.querySelector('.todo-info-template').innerHTML;
+    this.element.innerHTML = document.querySelector('.todo-template').innerHTML;
 
     this.todoName = this.element.querySelector('.todo-name');
     this.todoName.value = todoName;
     this.todoName.setAttribute('checked', 'false');
 
-    this.todoTag = todoTag;
-    this.element.querySelector('.todo-tag').value = todoTag;
-
+    this.todoTag = this.element.querySelector('.todo-tag');
+    this.todoTag.value = '#' + todoTag;
+    
     // set todoCheckbox color according to priority
     this.todoCheckbox = this.element.querySelector('.todo-checkbox');
 
+    // update priority
     this.element.querySelectorAll('input[type="radio"]').forEach(radio => {
       radio.name = radioName;
       radio.addEventListener('change', (event) => {
@@ -125,6 +123,9 @@ class Todo {
   }
 
   update() {
+    //this.element.querySelector('.todo-title-tag').innerHTML =
+    //    '#' + this.todoTag.value;
+
     if(this.priority == 'high') {
       this.todoCheckbox.style.borderColor = '#f38ba8';
       this.todoCheckbox.style.setProperty('--checkbox-background', '#f38ba8');
@@ -143,8 +144,9 @@ class Todo {
     // expand todo
     this.element.addEventListener('click', (event) => {
       if(event.target != this.todoCheckbox) {
-        this.element.style.maxHeight = '210px';
+        this.element.style.maxHeight = '140px';
         this.todoName.style.pointerEvents = 'auto'; 
+        this.todoTag.style.pointerEvents = 'auto'; 
       }
     });
 
@@ -154,6 +156,7 @@ class Todo {
         !this.element.contains(event.target)) {
         this.element.style.maxHeight = '50px';
         this.todoName.style.pointerEvents = 'none'; 
+        this.todoTag.style.pointerEvents = 'none'; 
       }
     });
 
@@ -204,11 +207,11 @@ function sortWithPriority(todoa, todob) {
 
 function sortWithTag(todoa, todob) {
   // if tags are same, sort with priority
-  if(todoa.todoTag == todob.todoTag) {
+  if(todoa.todoTag.value == todob.todoTag.value) {
     sortWithPriority(todoa, todob);
   }
   else {
-    return todob.todoTag.localeCompare(todoa.todoTag);
+    return todob.todoTag.value.localeCompare(todoa.todoTag.value);
   }
 }
 
