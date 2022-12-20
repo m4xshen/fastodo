@@ -1,10 +1,15 @@
 let radioName = 1;
 
 class TodoList {
-  constructor() {
+  constructor(name) {
     this.element = document.querySelector('.todo-list');
     this.uncheckedTodo = [];
     this.checkedTodo = [];
+
+    const list = document.createElement('div');
+    list.innerHTML = name;
+    list.className = 'active';
+    document.querySelector('.lists').appendChild(list);
 
     this.todoCreator = document.querySelector('.todo-creator');
     this.todoCreator.innerHTML =
@@ -21,6 +26,18 @@ class TodoList {
   // create a new todo
   addTodo(inputName, inputPriority, inputTag, inputChecked) {
     const newTodo = new Todo(inputName, inputPriority, inputTag, inputChecked);
+
+    newTodo.deleteButtonEle.addEventListener('click', () => {
+      if(newTodo.checked) {
+        this.checkedTodo.splice(this.checkedTodo.indexOf(newTodo), 1);
+      }
+      else {
+        this.uncheckedTodo.splice(this.uncheckedTodo.indexOf(newTodo), 1);
+      }
+      newTodo.element.remove();
+
+      this.update()
+    })
 
     // toggle todoCheckbox
     newTodo.todoCheckboxEle.addEventListener('click', () => {
@@ -141,6 +158,8 @@ class Todo {
     
     this.todoCheckboxEle = this.element.querySelector('.todo-checkbox');
 
+    this.deleteButtonEle = this.element.querySelector('.delete-button');
+
     // update priority
     this.element.querySelectorAll('input[type="radio"]').forEach(radio => {
       radio.name = radioName;
@@ -170,12 +189,12 @@ class Todo {
 
     // set checkbox color according to priority
     if(this.priority == 'high') {
-      this.todoCheckboxEle.style.borderColor = '#f38ba8';
-      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#f38ba8');
+      this.todoCheckboxEle.style.borderColor = '#fbcb08';
+      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#fbcb08');
     }
     else if(this.priority == 'mid') {
-      this.todoCheckboxEle.style.borderColor = '#f9e2af';
-      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#f9e2af');
+      this.todoCheckboxEle.style.borderColor = '#ffffda';
+      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#ffffda');
     }
     else {
       this.todoCheckboxEle.style.borderColor = '#a2a2a2';
@@ -190,6 +209,7 @@ class Todo {
     this.element.addEventListener('click', (event) => {
       if(event.target != this.todoCheckboxEle) {
         this.element.style.maxHeight = '140px';
+        this.element.style.padding = '15px';
         this.todoNameEle.style.pointerEvents = 'auto'; 
         this.todoTagEle.style.pointerEvents = 'auto'; 
       }
@@ -200,6 +220,7 @@ class Todo {
       if(event.target != this.element &&
         !this.element.contains(event.target)) {
         this.element.style.maxHeight = '50px';
+        this.element.style.padding = '10px';
         this.todoNameEle.style.pointerEvents = 'none'; 
         this.todoTagEle.style.pointerEvents = 'none'; 
 
@@ -208,27 +229,6 @@ class Todo {
     });
   }
 }
-
-// localStorage.clear();
-const todoList1 = new TodoList();
-
-if(localStorage.getItem('todoList1')) {
-  tmp = JSON.parse(localStorage.getItem('todoList1'));
-
-  tmp.uncheckedTodo.forEach(todo => {
-    todoList1.uncheckedTodo.push(todoList1.addTodo(
-      todo.todoName, todo.priority, todo.todoTag, false
-    ));
-  })
-  tmp.checkedTodo.forEach(todo => {
-    todoList1.checkedTodo.push(todoList1.addTodo(
-      todo.todoName, todo.priority, todo.todoTag, true
-    ));
-  })
-}
-
-todoList1.update();
-todoList1.display();
 
 function sortWithName(todoa, todob) {
   return todob.todoName.localeCompare(todoa.todoName);
@@ -255,15 +255,45 @@ function sortWithTag(todoa, todob) {
   }
 }
 
-// expand sort list
-const sortList = document.querySelector('.sort-list');
-document.querySelector('.sort-method-selector').addEventListener('click', () => {
-  sortList.style.maxHeight = '250px';
-});
+// set greeting message
+const date = new Date();
+const hour = date.getHours;
 
-// shrink sort list
-document.addEventListener('click', (event) => {
-  if(event.target != sortList && !sortList.contains(event.target)) {
-    sortList.style.maxHeight = '70px';
-  }
-})
+if(hour>=6 && hour<12) {
+  document.querySelector('.greet-message').innerHTML = 'Good Morning.';
+}
+else if(hour>=12 && hour<17) {
+  document.querySelector('.greet-message').innerHTML = 'Good Afternoon.';
+}
+else {
+  document.querySelector('.greet-message').innerHTML = 'Good Evening.';
+}
+
+const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+document.querySelector('.date').innerHTML =
+    monthName[date.getMonth()] + '<br>' + date.getDate();
+
+// localStorage.clear();
+const todoList1 = new TodoList('Today');
+
+if(localStorage.getItem('todoList1')) {
+  tmp = JSON.parse(localStorage.getItem('todoList1'));
+
+  tmp.uncheckedTodo.forEach(todo => {
+    todoList1.uncheckedTodo.push(todoList1.addTodo(
+      todo.todoName, todo.priority, todo.todoTag, false
+    ));
+  })
+  tmp.checkedTodo.forEach(todo => {
+    todoList1.checkedTodo.push(todoList1.addTodo(
+      todo.todoName, todo.priority, todo.todoTag, true
+    ));
+  })
+}
+
+todoList1.update();
+todoList1.display();
+
+// const todoList2 = new TodoList('TodoList2');
+// todoList2.display();

@@ -7,37 +7,99 @@
 
 * {
   background-color: #141414;
-  color: #ffffff;
+  color: #e4e4e4;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
 }
 
-body {
-  margin: 0;
+::-webkit-scrollbar {
+  display: none;
 }
 
-.project-name {
-  margin: 40px 0;
+.greeting {
+  margin: 40px 0 40px 270px;
+}
+
+.greeting div {
+  font-weight: 700;
+}
+
+.date {
+  margin: auto 10px;
+  font-size: 25px;
   text-align: center;
 }
 
-.project-name * {
-  font-family: 'Source Code Pro', monospace;
-  font-weight: 800;
-  font-size: 50px;
-  font-style: italic;
+.greet-message {
+  font-size: 35px;
 }
 
-.highlight {
-  background-color: #f9e2af;
-  color: #141414;
+.gray {
+  font-size: 30px;
+  color: #909090;
 }
 
 .flex-row {
   display: flex;
-  margin: 0 auto;
   width: 690px;
   gap: 15px;
+}
+
+.side-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: var(--todo-background);
+}
+
+.side-bar * {
+  background-color: var(--todo-background);
+}
+
+.fastodo {
+  margin: 15px 0 50px 10px;
+}
+
+.fastodo * {
+  vertical-align: middle;
+}
+
+img {
+  display: inline;
+  width: 25px;
+}
+
+.name {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.lists-text {
+  margin-left: 20px;
+  font-weight: 700;
+  line-height: 40px;
+}
+
+.lists {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.lists div {
+  width: 150px;
+  height: 50px;
+  margin: 0 auto;
+  line-height: 50px;
+  padding-left: 8px;
+  border-radius: 8px;
+}
+
+.active {
+  background-color: #fbcb08;
+  color: #141414;
 }
 
 .sort-list {
@@ -53,6 +115,10 @@ body {
   transition: max-height 0.5s ease-in-out;
 }
 
+.sort-list:hover {
+  max-height: 250px;
+}
+
 .sort-method-selector {
   background-color: var(--todo-background);
   width: 50px;
@@ -65,7 +131,7 @@ body {
 
 .sort-list > button {
   background-color: var(--todo-background);
-  font-size: 13px;
+  font-size: 12px;
   border: none;
   border-radius: 6px;
   width: 50px;
@@ -82,8 +148,10 @@ body {
 
 .todo-list {
   width: 520px;
+  margin-left: 300px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
 }
 
@@ -139,16 +207,21 @@ body {
   margin-left: 60px;
 }
 
+.todo-priority div {
+  margin-left: 105px;
+  cursor: pointer;
+}
+
 .todo-priority .high {
-  accent-color: #f38ba8;
+  accent-color: #fbcb08;
 }
 
 .todo-priority .mid {
-  accent-color: #f9e2af;
+  accent-color: #ffffda;
 }
 
 .todo-priority .low {
-  accent-color: var(--todo-gray);
+  accent-color: #a2a2a2;
 }
 
 .todo {
@@ -163,7 +236,7 @@ body {
   gap: 20px;
   overflow: hidden;
   max-height: 50px;
-  transition: max-height 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 .todo *:not(svg) {
@@ -217,7 +290,7 @@ body {
 }
 
 .todo-name[checked = 'false'] {
-  color: #ffffff;
+  color: #e4e4e4;
 }
 
 .todo-name[checked = 'true'] {
