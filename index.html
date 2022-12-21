@@ -12,10 +12,9 @@
         <img src="favicon.ico"></img>
         <span class="name">Fastodo</span>
       </div>
-      <div class="lists-text">Todo Lists</div>
-      <div class="lists">
-        <div>List 2</div>
-      </div>
+      <div class="lists-text">My Lists</div>
+      <div class="lists"></div>
+      <div class="list-creator">New List</div>
     </div>
 
     <div class="greeting">
@@ -29,7 +28,19 @@
     </div>
     <div class="flex-row">
       <div class="todo-list">
-        <div class="todo-creator"></div>
+        <div class="todo-creator">
+          <input type="text" class="input-name" placeholder="Add Todo"></input>
+          <div class="todo-priority">
+            <label>Priority</label>
+            <input type="radio" class="high">High</input>
+            <input type="radio" class="mid">Mid</input>
+            <input type="radio" class="low" checked>Low</input>
+          </div>
+          <div>
+            <label>Tag</label>
+            <input type="text" class="todo-creator-tag"></input>
+          </div>
+        </div>
       </div>
 
       <div>
@@ -60,21 +71,6 @@
         <input type="radio" class="mid">Mid</input>
         <input type="radio" class="low">Low</input>
         <div class="delete-button">🗑️</div>
-      </div>
-    </template>
-
-    <!-- todo creator template -->
-    <template class="todo-creator-template">
-      <input type="text" class="input-name" placeholder="Add Todo"></input>
-      <div class="todo-priority">
-        <label>Priority</label>
-        <input type="radio" class="high">High</input>
-        <input type="radio" class="mid">Mid</input>
-        <input type="radio" class="low" checked>Low</input>
-      </div>
-      <div>
-        <label>Tag</label>
-        <input type="text" class="todo-creator-tag"></input>
       </div>
     </template>
 

@@ -1,4 +1,48 @@
 let radioName = 1;
+let activeList;
+
+const todoCreator = document.querySelector('.todo-creator');
+
+// set the same name to avoid multiple choice
+todoCreator.querySelectorAll('input[type="radio"]').forEach(radio => {
+  radio.name = 0;
+});
+
+// expand the todoCreator
+const inputName = document.querySelector('.input-name');
+inputName.addEventListener('focus', () => {
+  todoCreator.style.maxHeight = '210px';
+});
+
+// shrink the todoCreator
+document.addEventListener('click', (event) => {
+  const inputName = document.querySelector('.input-name');
+  if(event.target != inputName && !todoCreator.contains(event.target)) {
+    todoCreator.style.maxHeight = '50px';
+  }
+});
+
+// create a new todo when press Enter
+todoCreator.addEventListener('keydown', (event) => {
+  const inputName = document.querySelector('.input-name');
+  if(event.code=='Enter' && inputName.value!='') {
+    const inputPriority =
+        todoCreator.querySelector('input[type="radio"]:checked');
+    const inputTag = todoCreator.querySelector('.todo-creator-tag');
+
+    const newTodo = activeList.addTodo(inputName.value,
+        inputPriority.className, inputTag.value, false);
+
+    activeList.uncheckedTodo.push(newTodo);
+
+    // set the default value after adding a new todo
+    inputName.value = '';
+    todoCreator.querySelector('.low').checked = true;
+    inputTag.value = '';
+
+    activeList.update();
+  }
+});
 
 class TodoList {
   constructor(name) {
@@ -6,21 +50,23 @@ class TodoList {
     this.uncheckedTodo = [];
     this.checkedTodo = [];
 
-    const list = document.createElement('div');
-    list.innerHTML = name;
-    list.className = 'active';
-    document.querySelector('.lists').appendChild(list);
+    this.list = document.createElement('div');
+    this.list.innerHTML = name;
+    document.querySelector('.lists').appendChild(this.list);
 
-    this.todoCreator = document.querySelector('.todo-creator');
-    this.todoCreator.innerHTML =
-        document.querySelector('.todo-creator-template').innerHTML;
+    if(activeList != undefined) {
+      activeList.list.classList.remove('active');
+    }
+    activeList = this;
+    activeList.list.classList.add('active');
 
-    // set the same name to avoid multiple choice
-    this.todoCreator.querySelectorAll('input[type="radio"]').forEach(radio => {
-      radio.name = 0;
+    this.list.addEventListener('click', () => {
+      activeList.list.classList.remove('active');
+      activeList = this;
+      activeList.update();
+      // console.log(activeList.list.className);
+      activeList.list.classList.add('active');
     });
-
-    this.addEvent();
   }
 
   // create a new todo
@@ -65,76 +111,19 @@ class TodoList {
     return newTodo;
   }
 
-  addEvent() {
-    // expand the todoCreator
-    const inputName = document.querySelector('.input-name');
-    inputName.addEventListener('focus', () => {
-      this.todoCreator.style.maxHeight = '210px';
-    })
-
-    // shrink the todoCreator
-    document.addEventListener('click', (event) => {
-      const inputName = document.querySelector('.input-name');
-      if(event.target != inputName && !this.todoCreator.contains(event.target)) {
-        this.todoCreator.style.maxHeight = '50px';
-      }
-    })
-
-    // create a new todo when press Enter
-    this.todoCreator.addEventListener('keydown', (event) => {
-      const inputName = document.querySelector('.input-name');
-      if(event.code=='Enter' && inputName.value!='') {
-        const inputPriority =
-        this.todoCreator.querySelector('input[type="radio"]:checked');
-        const inputTag = this.todoCreator.querySelector('.todo-creator-tag');
-
-        const newTodo = this.addTodo(inputName.value,
-            inputPriority.className, inputTag.value, false);
-        this.uncheckedTodo.push(newTodo);
-
-        // set the default value after adding a new todo
-        inputName.value = '';
-        this.todoCreator.querySelector('.low').checked = true;
-        inputTag.value = '';
-
-        this.update();
-        this.display();
-      }
-    });
-
-    // add click events for sort buttons
-    document.querySelector('.sort-name').addEventListener('click', () => {
-      this.uncheckedTodo.sort(sortWithName);
-      this.update();
-    })
-
-    document.querySelector('.sort-priority').addEventListener('click', () => {
-      this.uncheckedTodo.sort(sortWithPriority);
-      this.update();
-    })
-
-    document.querySelector('.sort-tag').addEventListener('click', () => {
-      this.uncheckedTodo.sort(sortWithTag);
-      this.update();
-    })
-  }
-
   // update the todo list
   update() {
+    document.querySelector('.todo-list').innerHTML = '';
+    document.querySelector('.todo-list').appendChild(todoCreator);
+
     this.checkedTodo.forEach((todo) => {
-      this.element.insertBefore(todo.element, this.todoCreator.nextSibling);
+      this.element.insertBefore(todo.element, todoCreator.nextSibling);
     });
     this.uncheckedTodo.forEach((todo) => {
-      this.element.insertBefore(todo.element, this.todoCreator.nextSibling);
+      this.element.insertBefore(todo.element, todoCreator.nextSibling);
     });
 
-    localStorage.setItem('todoList1', JSON.stringify(this));
-  }
-
-  // display the todo list
-  display() {
-    this.uncheckedTodo.forEach((todo) =>
-      this.element.insertBefore(todo.element, this.todoCreator.nextSibling));
+    // localStorage.setItem('todoList1', JSON.stringify(this));
   }
 }
 
@@ -201,7 +190,7 @@ class Todo {
       this.todoCheckboxEle.style.setProperty('--checkbox-background', '#a2a2a2');
     }
 
-    localStorage.setItem('todoList1', JSON.stringify(todoList1));
+    // localStorage.setItem('todoList1', JSON.stringify(todoList1));
   }
 
   addEvent() {
@@ -255,6 +244,22 @@ function sortWithTag(todoa, todob) {
   }
 }
 
+// event for sort button
+document.querySelector('.sort-name').addEventListener('click', () => {
+  activeList.uncheckedTodo.sort(sortWithName);
+  activeList.update();
+})
+
+document.querySelector('.sort-priority').addEventListener('click', () => {
+  activeList.uncheckedTodo.sort(sortWithPriority);
+  activeList.update();
+})
+
+document.querySelector('.sort-tag').addEventListener('click', () => {
+  activeList.uncheckedTodo.sort(sortWithTag);
+  activeList.update();
+})
+
 // set greeting message
 const date = new Date();
 const hour = date.getHours;
@@ -275,8 +280,8 @@ document.querySelector('.date').innerHTML =
     monthName[date.getMonth()] + '<br>' + date.getDate();
 
 // localStorage.clear();
-const todoList1 = new TodoList('Today');
 
+/*
 if(localStorage.getItem('todoList1')) {
   tmp = JSON.parse(localStorage.getItem('todoList1'));
 
@@ -291,9 +296,14 @@ if(localStorage.getItem('todoList1')) {
     ));
   })
 }
+*/
 
-todoList1.update();
-todoList1.display();
+const lists = [];
+const listCreator = document.querySelector('.list-creator');
+lists.push(new TodoList('Today'));
+activeList = lists[0];
 
-// const todoList2 = new TodoList('TodoList2');
-// todoList2.display();
+listCreator.addEventListener('click', () => {
+  lists.push(new TodoList('New List'));
+  activeList.update();
+});
