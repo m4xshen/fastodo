@@ -17,7 +17,7 @@
 }
 
 .greeting {
-  margin: 40px 0 40px 270px;
+  margin: 40px 0 40px 300px;
 }
 
 .greeting div {
@@ -79,6 +79,7 @@ img {
 .lists-text {
   margin-left: 20px;
   font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .lists {
@@ -97,16 +98,28 @@ img {
   cursor: pointer;
 }
 
+.lists input {
+  width: 120px;
+  border-style: none;
+  outline: none;
+  pointer-events: none;
+}
+
 .lists .active {
-  background-color: #fbcb08;
+  background-color: #ebc52d;
+}
+
+.lists .active input {
+  background-color: #ebc52d;
   color: #141414;
+  pointer-events: auto;
 }
 
 .list-creator {
   width: 150px;
   height: 50px;
   margin: 0 auto;
-  line-height: 50px;
+  line-height: 20px;
   padding-left: 8px;
   border-radius: 8px;
   color: #a2a2a2;
@@ -159,7 +172,7 @@ img {
 
 .todo-list {
   width: 520px;
-  margin-left: 300px;
+  margin-left: 330px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,7 +237,7 @@ img {
 }
 
 .todo-priority .high {
-  accent-color: #fbcb08;
+  accent-color: #ebc52d;
 }
 
 .todo-priority .mid {
