@@ -1,6 +1,16 @@
 let radioName = 1;
 let activeList;
 
+const dayName = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const priorityToColor = {'high': '#ebc52d', 'mid': '#ffffda', 'low': '#a2a2a2'}
+
+const date = new Date();
+let currentYear = date.getFullYear(); 
+let currentMonth = date.getMonth(); 
+
 const todoCreator = document.querySelector('.todo-creator');
 
 // set the same name to avoid multiple choice
@@ -11,7 +21,7 @@ todoCreator.querySelectorAll('input[type="radio"]').forEach(radio => {
 // expand the todoCreator
 const inputName = document.querySelector('.input-name');
 inputName.addEventListener('focus', () => {
-  todoCreator.style.maxHeight = '210px';
+  todoCreator.style.maxHeight = '280px';
 });
 
 // shrink the todoCreator
@@ -29,8 +39,9 @@ todoCreator.addEventListener('keydown', (event) => {
     const inputPriority =
         todoCreator.querySelector('input[type="radio"]:checked');
     const inputTag = todoCreator.querySelector('.todo-creator-tag');
+    const inputDate = todoCreator.querySelector('.todo-creator-date');
 
-    const newTodo = activeList.addTodo(inputName.value,
+    const newTodo = activeList.addTodo(inputName.value, inputDate.value,
         inputPriority.className, inputTag.value, false);
 
     activeList.uncheckedTodo.push(newTodo);
@@ -39,6 +50,7 @@ todoCreator.addEventListener('keydown', (event) => {
     inputName.value = '';
     todoCreator.querySelector('.low').checked = true;
     inputTag.value = '';
+    inputDate.value = '';
 
     activeList.update();
   }
@@ -51,17 +63,27 @@ class TodoList {
     this.uncheckedTodo = [];
     this.checkedTodo = [];
 
-    this.listInput = document.createElement('input');
-    this.listInput.type = 'text';
+    this.list = document.createElement('div');
+    this.list.innerHTML = document.querySelector('.list-template').innerHTML;
+
+    this.listInput = this.list.querySelector('input');
     this.listInput.value = name;
+
+    // add event to delete list button
+    this.deleteList = this.list.querySelector('.fa-xmark');
+    this.deleteList.addEventListener('click', () => {
+      activeList = lists[0];
+      activeList.list.classList.add('active');
+      activeList.update();
+
+      lists.splice(lists.indexOf(this), 1);
+      document.querySelector('.lists').removeChild(this.list);
+    })
 
     this.listInput.addEventListener('change', () => {
       this.name = this.listInput.value;
       this.update();
     });
-
-    this.list = document.createElement('div');
-    this.list.appendChild(this.listInput);
 
     document.querySelector('.lists').appendChild(this.list);
 
@@ -71,17 +93,20 @@ class TodoList {
     activeList = this;
     activeList.list.classList.add('active');
 
-    this.list.addEventListener('click', () => {
-      activeList.list.classList.remove('active');
-      activeList = this;
-      activeList.update();
-      activeList.list.classList.add('active');
+    this.list.addEventListener('click', (event) => {
+      if(event.target != this.deleteList) {
+        activeList.list.classList.remove('active');
+        activeList = this;
+        activeList.update();
+        activeList.list.classList.add('active');
+      }
     });
   }
 
   // create a new todo
-  addTodo(inputName, inputPriority, inputTag, inputChecked) {
-    const newTodo = new Todo(inputName, inputPriority, inputTag, inputChecked);
+  addTodo(inputName, inputDate, inputPriority, inputTag, inputChecked) {
+    const newTodo =
+        new Todo(inputName, inputDate, inputPriority, inputTag, inputChecked);
 
     newTodo.deleteButtonEle.addEventListener('click', () => {
       if(newTodo.checked) {
@@ -94,6 +119,28 @@ class TodoList {
 
       this.update()
     })
+
+    newTodo.todoNameEle.addEventListener('change', () => {
+      newTodo.update();
+      this.update();
+    })
+
+    newTodo.todoDateEle.addEventListener('change', () => {
+      newTodo.update();
+      this.update();
+    })
+
+    newTodo.todoTagEle.addEventListener('change', () => {
+      newTodo.update();
+      this.update();
+    })
+
+    newTodo.element.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('click', () => {
+        newTodo.update();
+        this.update();
+      })
+    });
 
     // toggle todoCheckbox
     newTodo.todoCheckboxEle.addEventListener('click', () => {
@@ -133,15 +180,17 @@ class TodoList {
       this.element.insertBefore(todo.element, todoCreator.nextSibling);
     });
 
+    createCalendar(currentYear, currentMonth, this);
     localStorage.setItem('lists', JSON.stringify(lists));
   }
 }
 
 class Todo {
-  constructor(todoName, priority, todoTag, checked) {
+  constructor(todoName, todoDate, priority, todoTag, checked) {
     this.todoName = todoName;
     this.checked = checked;
     this.priority = priority;
+    this.todoDate = todoDate;
     this.todoTag = todoTag;
 
     // create todo
@@ -151,6 +200,9 @@ class Todo {
 
     this.todoNameEle = this.element.querySelector('.todo-name');
     this.todoNameEle.value = todoName;
+
+    this.todoDateEle = this.element.querySelector('.todo-date');
+    this.todoDateEle.value = todoDate;
 
     this.todoTagEle = this.element.querySelector('.todo-tag');
     this.todoTagEle.value = '#' + todoTag;
@@ -175,6 +227,7 @@ class Todo {
 
   update() {
     this.todoName = this.todoNameEle.value;
+    this.todoDate = this.todoDateEle.value;
     this.todoTag = this.todoTagEle.value.substring(1);
     this.element.querySelectorAll('input[type="radio"]').forEach(radio => {
       if(radio.checked) {
@@ -187,25 +240,16 @@ class Todo {
     this.todoNameEle.setAttribute('checked', this.checked);
 
     // set checkbox color according to priority
-    if(this.priority == 'high') {
-      this.todoCheckboxEle.style.borderColor = '#ebc52d';
-      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#ebc52d');
-    }
-    else if(this.priority == 'mid') {
-      this.todoCheckboxEle.style.borderColor = '#ffffda';
-      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#ffffda');
-    }
-    else {
-      this.todoCheckboxEle.style.borderColor = '#a2a2a2';
-      this.todoCheckboxEle.style.setProperty('--checkbox-background', '#a2a2a2');
-    }
+    const color = priorityToColor[this.priority];
+    this.todoCheckboxEle.style.borderColor = color;
+    this.todoCheckboxEle.style.setProperty('--checkbox-background', color);
   }
 
   addEvent() {
     // expand todo
     this.element.addEventListener('click', (event) => {
       if(event.target != this.todoCheckboxEle) {
-        this.element.style.maxHeight = '140px';
+        this.element.style.maxHeight = '190px';
         this.element.style.padding = '15px';
         this.todoNameEle.style.pointerEvents = 'auto'; 
         this.todoTagEle.style.pointerEvents = 'auto'; 
@@ -229,6 +273,13 @@ class Todo {
 
 function sortWithName(todoa, todob) {
   return todob.todoName.localeCompare(todoa.todoName);
+}
+
+function sortWithDate(todoa, todob) {
+  const datea = new Date(todoa.todoDate);
+  const dateb = new Date(todob.todoDate);
+
+  return datea < dateb;
 }
 
 const priorityToNum = { 'high': 3, 'mid': 2, 'low': 1 }
@@ -258,6 +309,11 @@ document.querySelector('.sort-name').addEventListener('click', () => {
   activeList.update();
 })
 
+document.querySelector('.sort-date').addEventListener('click', () => {
+  activeList.uncheckedTodo.sort(sortWithDate);
+  activeList.update();
+})
+
 document.querySelector('.sort-priority').addEventListener('click', () => {
   activeList.uncheckedTodo.sort(sortWithPriority);
   activeList.update();
@@ -268,8 +324,14 @@ document.querySelector('.sort-tag').addEventListener('click', () => {
   activeList.update();
 })
 
+document.querySelector('.calendar-bt').addEventListener('click', () => {
+  document.querySelector('.calendar-bt').classList.toggle('visible');
+  document.querySelector('.right-bar').classList.toggle('visible');
+  document.querySelector('.greeting').classList.toggle('visible');
+  document.querySelector('.todo-list').classList.toggle('visible');
+});
+
 // set greeting message
-const date = new Date();
 const hour = date.getHours();
 
 if(hour>=6 && hour<12) {
@@ -282,8 +344,6 @@ else {
   document.querySelector('.greet-message').innerHTML = 'Good Evening.';
 }
 
-const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 document.querySelector('.date').innerHTML =
     monthName[date.getMonth()] + '<br>' + date.getDate();
 
@@ -292,7 +352,7 @@ document.querySelector('.date').innerHTML =
 const data = JSON.parse(localStorage.getItem('lists'));
 const lists = [];
 
-if(data == null) {
+if(data == undefined || data.length == 0) {
   lists.push(new TodoList('Today'));
 }
 else {
@@ -300,18 +360,21 @@ else {
     const tmp = new TodoList(list.name);
 
     list.uncheckedTodo.forEach(todo => {
-      tmp.uncheckedTodo.push(tmp.addTodo(
-          todo.todoName, todo.priority, todo.todoTag, false));
+      tmp.uncheckedTodo.push(tmp.addTodo(todo.todoName, todo.todoDate,
+          todo.priority, todo.todoTag, false));
     })
     list.checkedTodo.forEach(todo => {
-      tmp.checkedTodo.push(tmp.addTodo(
-          todo.todoName, todo.priority, todo.todoTag, true));
+      tmp.checkedTodo.push(tmp.addTodo(todo.todoName, todo.todoDate,
+          todo.priority, todo.todoTag, true));
     })
     lists.push(tmp);
   });
 }
 
-activeList.list.classList.remove('active');
+// set first list as active
+if(activeList != undefined) {
+  activeList.list.classList.remove('active');
+}
 activeList = lists[0];
 activeList.list.classList.add('active');
 activeList.update();
@@ -321,3 +384,87 @@ listCreator.addEventListener('click', () => {
   lists.push(new TodoList(`List ${lists.length+1}`));
   activeList.update();
 });
+
+function createCalendar(y, m, todolist) {
+  document.querySelector('.month').innerHTML = monthName[m];
+  document.querySelector('.year').innerHTML = y;
+  const calendarTodo = document.querySelector('.calendar-todo');
+  calendarTodo.innerHTML = '';
+
+  const s = new Date(y, m, 1).getDay(); // start
+  const e = new Date(y, m+1, 0).getDate(); // end
+
+  const calendar = document.querySelector('.calendar');
+
+  calendar.innerHTML = '';
+  // create day name
+  for(let i = 0; i < 7; i++) {
+    const tmp = document.createElement('div');
+    tmp.className = 'day';
+    tmp.innerHTML = dayName[i];
+    calendar.appendChild(tmp);
+  }
+
+  for(let i = 0; i < s + e; i++) {
+    const tmp = document.createElement('div');
+    if(i >= s) {
+      tmp.innerHTML = i-s+1;
+
+      // mark today
+      const today = new Date();
+      if(y == today.getFullYear() && m == today.getMonth() &&
+          i-s+1 == today.getDate()) {
+        tmp.style.backgroundColor = '#ebc52d';
+        tmp.style.color = '#141414';
+      }
+
+      for(let j = 0; j < todolist.uncheckedTodo.length; j++) {
+        const date = new Date(todolist.uncheckedTodo[j].todoDate);
+        // there are todos on that day
+        if(date.getFullYear() == y && date.getMonth() == m &&
+          date.getDate() == i-s+1) {
+          tmp.style.backgroundColor = '#505050';
+          break;
+        }
+      }
+
+      // show the todo on that day
+      tmp.addEventListener('click', () => {
+        calendarTodo.innerHTML = '';
+
+        todolist.uncheckedTodo.forEach((todo) => {
+          const date = new Date(todo.todoDate);
+          if(date.getFullYear() == y && date.getMonth() == m &&
+            date.getDate() == i-s+1) {
+            // show unchecked todo below
+            const div = document.createElement('div');
+            div.innerHTML = todo.todoName;
+            calendarTodo.appendChild(div);
+          }
+        })
+      })
+    }
+    calendar.appendChild(tmp);
+  }
+}
+
+// previous month
+document.querySelector('.fa-caret-left').addEventListener('click', () => {
+  currentMonth--;
+  if(currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  createCalendar(currentYear, currentMonth, activeList);
+})
+
+// next month
+document.querySelector('.fa-caret-right').addEventListener('click', () => {
+  currentMonth++;
+  if(currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  createCalendar(currentYear, currentMonth, activeList);
+})
+

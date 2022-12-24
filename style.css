@@ -10,6 +10,7 @@
   color: #e4e4e4;
   font-family: 'Inter', sans-serif;
   font-size: 15px;
+  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
@@ -17,7 +18,12 @@
 }
 
 .greeting {
-  margin: 40px 0 40px 300px;
+  margin: 40px 0 40px 400px;
+  transition: 0.6s;
+}
+
+.greeting.visible {
+  margin-left: 250px;
 }
 
 .greeting div {
@@ -45,7 +51,7 @@
   gap: 15px;
 }
 
-.side-bar {
+.left-bar {
   position: fixed;
   top: 0;
   left: 0;
@@ -54,7 +60,7 @@
   background-color: var(--todo-background);
 }
 
-.side-bar * {
+.left-bar * {
   background-color: var(--todo-background);
 }
 
@@ -115,6 +121,19 @@ img {
   pointer-events: auto;
 }
 
+.fa-xmark {
+  background-color: transparent;
+}
+
+.lists .fa-xmark {
+  visibility: hidden;
+  color: #141414;
+}
+
+.lists .active .fa-xmark {
+  visibility: visible;
+}
+
 .list-creator {
   width: 150px;
   height: 50px;
@@ -124,6 +143,10 @@ img {
   border-radius: 8px;
   color: #a2a2a2;
   cursor: pointer;
+}
+
+.fa-plus {
+  color: #a2a2a2;
 }
 
 .sort-list {
@@ -140,7 +163,7 @@ img {
 }
 
 .sort-list:hover {
-  max-height: 250px;
+  max-height: 310px;
 }
 
 .sort-method-selector {
@@ -153,7 +176,12 @@ img {
   user-select: none;
 }
 
-.sort-list > button {
+.sort-method-selector i {
+  font-size: 18px;
+  background-color: var(--todo-background);
+}
+
+.sort-list button {
   background-color: var(--todo-background);
   font-size: 12px;
   border: none;
@@ -172,11 +200,16 @@ img {
 
 .todo-list {
   width: 520px;
-  margin-left: 330px;
+  margin-left: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  transition: 0.6s;
+}
+
+.todo-list.visible {
+  margin-left: 275px;
 }
 
 .todo-creator {
@@ -208,6 +241,10 @@ img {
   outline: none;
 }
 
+.todo-creator-date {
+  padding-left: 70px;
+}
+
 .todo-creator-tag {
   padding-left: 80px;
 }
@@ -221,6 +258,10 @@ img {
   font-size: 13px;
   text-align: right;
   pointer-events: none;
+}
+
+.todo-date {
+  margin-left: 65px;
 }
 
 .todo-priority {
@@ -246,6 +287,14 @@ img {
 
 .todo-priority .low {
   accent-color: #a2a2a2;
+}
+
+.fa-trash-can {
+  transition: 0.3s;
+}
+
+.fa-trash-can:hover{
+  color: #ebc52d;
 }
 
 .todo {
@@ -319,4 +368,118 @@ img {
 
 .todo-name[checked = 'true'] {
   color: var(--todo-gray);
+}
+
+.right-bar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100%;
+  background-color: var(--todo-background);
+  transition: 0.6s;
+}
+
+.right-bar.visible{
+  right: 0;
+}
+
+.right-bar .calendar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  text-align: center;
+  width: 250px;
+  height: 250px;
+  margin: 20px auto 0px auto;
+  border-radius: 12px;
+  background-color: var(--todo-background);
+}
+
+.right-bar * {
+  background-color: var(--todo-background);
+}
+
+.right-bar .calendar .day {
+  font-weight: 700;
+}
+
+.right-bar .calendar .date {
+  height: 20px;
+}
+
+.right-bar .calendar div {
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 50%;
+  user-select: none;
+}
+
+.right-bar .calendar-nav {
+  display: flex;
+  justify-content: space-around;
+  height: 40px;
+  margin-top: 20px;
+}
+
+.right-bar .calendar-nav > div {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.right-bar .calendar-nav .month {
+  text-align: center;
+}
+
+.fa-caret-left, .fa-caret-right {
+  cursor: pointer;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.calendar-todo {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px 0 40px;
+  gap: 10px;
+  height: 240px;
+  overflow: scroll;
+}
+
+.calendar-todo div {
+  padding-left: 10px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 8px;
+  color: #e4e4e4;
+  background-color: #505050;
+}
+
+.calendar-bt {
+  background-color: var(--todo-background);
+  height: 70px;
+  width: 70px;
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  border: none;
+  transition: 0.6s;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.calendar-bt i {
+  font-size: 20px;
+  transition: 0.6s;
+}
+
+.calendar-bt:hover {
+  width: 75px;
+}
+
+.calendar-bt.visible {
+  right: 320px;
 }

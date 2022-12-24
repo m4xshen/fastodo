@@ -5,16 +5,17 @@
     <title>Fastodo</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/44a1dd0b54.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="side-bar">
+    <div class="left-bar">
       <div class="fastodo">
         <img src="favicon.ico"></img>
         <span class="name">Fastodo</span>
       </div>
       <div class="lists-text">My Lists</div>
       <div class="lists"></div>
-      <div class="list-creator">+ New List</div>
+      <div class="list-creator"><i class="fa-solid fa-plus"></i> New List</div>
     </div>
 
     <div class="greeting">
@@ -30,6 +31,10 @@
       <div class="todo-list">
         <div class="todo-creator">
           <input type="text" class="input-name" placeholder="Add Todo"></input>
+          <div>
+            <label>Date</label>
+            <input type="date" class="todo-creator-date"></input>
+          </div>
           <div class="todo-priority">
             <label>Priority</label>
             <input type="radio" class="high">High</input>
@@ -42,15 +47,34 @@
           </div>
         </div>
       </div>
-
       <div>
         <div class="sort-list">
-          <div class="sort-method-selector">Sort</div>
+          <div class="sort-method-selector">
+            <i class="fa-solid fa-arrow-up-short-wide"></i>
+          </div>
           <button class="sort-name">Name</button>
+          <button class="sort-date">Date</button>
           <button class="sort-priority">Priority</button>
           <button class="sort-tag">Tag</button>
         </div>
       </div>
+    </div>
+
+    <button class="calendar-bt">
+      <i class="fa-solid fa-calendar-days"></i>
+    </button>
+
+    <div class="right-bar">
+      <div class="calendar-nav">
+        <i class="fa-solid fa-caret-left"></i>
+        <div>
+          <div class="year">2022</div>
+          <div class="month"></div>
+        </div>
+        <i class="fa-solid fa-caret-right"></i>
+      </div>
+      <div class="calendar"></div>
+      <div class="calendar-todo"></div>
     </div>
 
     <!-- todo template -->
@@ -65,17 +89,22 @@
         <input type="text" class="todo-name" placeholder="Todo Name"></input>
         <input type="text" class="todo-tag"></input>
       </div>
+      <div>
+        <label>Date</label>
+        <input type="date" class="todo-date"></input>
+      </div>
       <div class="todo-priority">
         <label>Priority</label>
         <input type="radio" class="high">High</input>
         <input type="radio" class="mid">Mid</input>
         <input type="radio" class="low">Low</input>
-        <div class="delete-button">🗑️</div>
+        <div class="delete-button"><i class="fa-solid fa-trash-can"></i></div>
       </div>
     </template>
 
     <template class="list-template">
-      <input type="text">
+      <input type="text"></input>
+      <i class="fa-solid fa-xmark"></i>
     </template>
 
     <script src="script.js"></script>
