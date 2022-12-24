@@ -17,6 +17,15 @@
   display: none;
 }
 
+.icon {
+  transform: rotate(0);
+  transition: 1s;
+}
+
+.icon.rotate {
+  transform: rotate(360deg);
+}
+
 .greeting {
   margin: 40px 0 40px 400px;
   transition: 0.6s;
@@ -290,6 +299,7 @@ img {
 }
 
 .fa-trash-can {
+  color: var(--todo-gray);
   transition: 0.3s;
 }
 
@@ -482,4 +492,33 @@ img {
 
 .calendar-bt.visible {
   right: 320px;
+}
+
+.congratulations {
+  position: absolute;
+  top: -200px;
+  left: 0;
+  right: 0;
+  width: 800px;
+  margin: 0 auto;
+  background-color: transparent;
+  color: #e4e4e4;
+  font-weight: 800;
+  font-size: 40px;
+  text-align: center;
+
+  transition: 1s;
+  z-index: 2;
+}
+
+.dim {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.5;
+  z-index: 1;
+  transition: 1s;
 }

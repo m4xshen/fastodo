@@ -53,6 +53,7 @@ todoCreator.addEventListener('keydown', (event) => {
     inputDate.value = '';
 
     activeList.update();
+    inputName.focus();
   }
 });
 
@@ -148,9 +149,21 @@ class TodoList {
 
       if(newTodo.checked) {
         // move the todo from unchecked to checked
-        this.uncheckedTodo.splice(
-          this.uncheckedTodo.indexOf(newTodo), 1);
+        this.uncheckedTodo.splice(this.uncheckedTodo.indexOf(newTodo), 1);
         this.checkedTodo.push(newTodo);
+
+        // congratulate the user when finishing all tasks
+        if(this.uncheckedTodo.length == 0) {
+          const congrats = document.querySelector('.congratulations')
+          const dim = document.querySelector('.dim');
+          congrats.style.top = '200px';
+          dim.style.top = '0';
+
+          setTimeout(function(){
+            congrats.style.top = '-200px';
+            dim.style.top = '-100%';
+          }, 2500);
+        }
       }
       else {
         // move the todo from checked to unchecked
@@ -278,8 +291,15 @@ function sortWithName(todoa, todob) {
 function sortWithDate(todoa, todob) {
   const datea = new Date(todoa.todoDate);
   const dateb = new Date(todob.todoDate);
+  if(datea < dateb) {
+    return true;
+  }
+  else if(datea > dateb) {
+    return false;
+  }
 
-  return datea < dateb;
+  // if date are same, sort with priority
+  return sortWithPriority(todoa, todob);
 }
 
 const priorityToNum = { 'high': 3, 'mid': 2, 'low': 1 }
@@ -410,14 +430,6 @@ function createCalendar(y, m, todolist) {
     if(i >= s) {
       tmp.innerHTML = i-s+1;
 
-      // mark today
-      const today = new Date();
-      if(y == today.getFullYear() && m == today.getMonth() &&
-          i-s+1 == today.getDate()) {
-        tmp.style.backgroundColor = '#ebc52d';
-        tmp.style.color = '#141414';
-      }
-
       for(let j = 0; j < todolist.uncheckedTodo.length; j++) {
         const date = new Date(todolist.uncheckedTodo[j].todoDate);
         // there are todos on that day
@@ -444,6 +456,15 @@ function createCalendar(y, m, todolist) {
         })
       })
     }
+
+    // mark today
+    const today = new Date();
+    if(y == today.getFullYear() && m == today.getMonth() &&
+      i-s+1 == today.getDate()) {
+      tmp.style.backgroundColor = '#ebc52d';
+      tmp.style.color = '#141414';
+    }
+
     calendar.appendChild(tmp);
   }
 }
@@ -468,3 +489,12 @@ document.querySelector('.fa-caret-right').addEventListener('click', () => {
   createCalendar(currentYear, currentMonth, activeList);
 })
 
+// easter egg
+let count = 0;
+const icon = document.querySelector('.icon');
+icon.addEventListener('click', () => {
+  icon.classList.toggle('rotate');
+  if(++count == 5) {
+    icon.style.transform = 'rotate(1080deg)';
+  }
+})
