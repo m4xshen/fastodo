@@ -27,12 +27,8 @@
 }
 
 .greeting {
-  margin: 40px 0 40px 400px;
+  margin: 40px 0 40px 250px;
   transition: 0.6s;
-}
-
-.greeting.visible {
-  margin-left: 250px;
 }
 
 .greeting div {
@@ -209,16 +205,12 @@ img {
 
 .todo-list {
   width: 520px;
-  margin-left: 400px;
+  margin-left: 275px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
   transition: 0.6s;
-}
-
-.todo-list.visible {
-  margin-left: 275px;
 }
 
 .todo-creator {
@@ -365,9 +357,31 @@ img {
   visibility: visible;
 }
 
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-column .display-date {
+  height: 10px;
+  margin-left: 2px;
+  line-height: 10px;
+  font-size: 10px;
+}
+
+.display-date[checked = 'false'] {
+  color: #e4e4e4;
+}
+
+.display-date[checked = 'true'] {
+  color: var(--todo-gray);
+}
+
 .todo-name {
   background-color: var(--todo-background);
   font-weight: 400;
+  height: 30px;
+  line-height: 30px;
   display: inline-block;
   pointer-events: none;
 }
@@ -383,15 +397,11 @@ img {
 .right-bar {
   position: fixed;
   top: 0;
-  right: -320px;
+  right: 0;
   width: 320px;
   height: 100%;
   background-color: var(--todo-background);
   transition: 0.6s;
-}
-
-.right-bar.visible{
-  right: 0;
 }
 
 .right-bar .calendar {
@@ -450,48 +460,15 @@ img {
   font-size: 20px;
 }
 
-.calendar-todo {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 40px 0 40px;
-  gap: 10px;
-  height: 240px;
-  overflow: scroll;
-}
-
-.calendar-todo div {
-  padding-left: 10px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 8px;
-  color: #e4e4e4;
+.show-all {
   background-color: #505050;
-}
-
-.calendar-bt {
-  background-color: var(--todo-background);
-  height: 70px;
-  width: 70px;
-  position: absolute;
-  top: 40px;
-  right: 0px;
-  border: none;
-  transition: 0.6s;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-.calendar-bt i {
-  font-size: 20px;
-  transition: 0.6s;
-}
-
-.calendar-bt:hover {
-  width: 75px;
-}
-
-.calendar-bt.visible {
-  right: 320px;
+  width: 100px;
+  height: 30px;
+  margin: 0 auto;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .congratulations {

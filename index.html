@@ -60,10 +60,6 @@
       </div>
     </div>
 
-    <button class="calendar-bt">
-      <i class="fa-solid fa-calendar-days"></i>
-    </button>
-
     <div class="right-bar">
       <div class="calendar-nav">
         <i class="fa-solid fa-caret-left"></i>
@@ -74,6 +70,7 @@
         <i class="fa-solid fa-caret-right"></i>
       </div>
       <div class="calendar"></div>
+      <div class="show-all">Show All</div>
       <div class="calendar-todo"></div>
     </div>
 
@@ -91,7 +88,10 @@
             </path>
           </svg>
         </button>
-        <input type="text" class="todo-name" placeholder="Todo Name"></input>
+        <div class="flex-column">
+          <div class="display-date"></div>
+          <input type="text" class="todo-name" placeholder="Todo Name"></input>
+        </div>
         <input type="text" class="todo-tag"></input>
       </div>
       <div>

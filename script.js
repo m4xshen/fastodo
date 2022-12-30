@@ -167,8 +167,7 @@ class TodoList {
       }
       else {
         // move the todo from checked to unchecked
-        this.checkedTodo.splice(
-          this.checkedTodo.indexOf(newTodo), 1);
+        this.checkedTodo.splice(this.checkedTodo.indexOf(newTodo), 1);
         this.uncheckedTodo.push(newTodo);
       }
 
@@ -248,6 +247,10 @@ class Todo {
       }
     });
 
+    const displayDate = this.element.querySelector('.display-date');
+    displayDate.innerHTML = (this.todoDate == "") ? "No Date" : this.todoDate;
+    displayDate.setAttribute('checked', this.checked);
+
     this.todoCheckboxEle.setAttribute('checked', this.checked);
     this.svg.setAttribute('checked', this.checked);
     this.todoNameEle.setAttribute('checked', this.checked);
@@ -289,17 +292,14 @@ function sortWithName(todoa, todob) {
 }
 
 function sortWithDate(todoa, todob) {
-  const datea = new Date(todoa.todoDate);
-  const dateb = new Date(todob.todoDate);
-  if(datea < dateb) {
-    return true;
-  }
-  else if(datea > dateb) {
-    return false;
-  }
+  const datea = Date.parse(todoa.todoDate) || 0;
+  const dateb = Date.parse(todob.todoDate) || 0;
 
   // if date are same, sort with priority
-  return sortWithPriority(todoa, todob);
+  if(datea == dateb) {
+    return sortWithPriority(todoa, todob);
+  }
+  return dateb - datea;
 }
 
 const priorityToNum = { 'high': 3, 'mid': 2, 'low': 1 }
@@ -343,13 +343,6 @@ document.querySelector('.sort-tag').addEventListener('click', () => {
   activeList.uncheckedTodo.sort(sortWithTag);
   activeList.update();
 })
-
-document.querySelector('.calendar-bt').addEventListener('click', () => {
-  document.querySelector('.calendar-bt').classList.toggle('visible');
-  document.querySelector('.right-bar').classList.toggle('visible');
-  document.querySelector('.greeting').classList.toggle('visible');
-  document.querySelector('.todo-list').classList.toggle('visible');
-});
 
 // set greeting message
 const hour = date.getHours();
@@ -442,18 +435,26 @@ function createCalendar(y, m, todolist) {
 
       // show the todo on that day
       tmp.addEventListener('click', () => {
-        calendarTodo.innerHTML = '';
-
-        todolist.uncheckedTodo.forEach((todo) => {
+        document.querySelector('.todo-list').innerHTML = '';
+        document.querySelector('.todo-list').appendChild(todoCreator);
+        activeList.checkedTodo.forEach((todo) => {
           const date = new Date(todo.todoDate);
+
           if(date.getFullYear() == y && date.getMonth() == m &&
             date.getDate() == i-s+1) {
-            // show unchecked todo below
-            const div = document.createElement('div');
-            div.innerHTML = todo.todoName;
-            calendarTodo.appendChild(div);
+            activeList.element.insertBefore(todo.element,
+                todoCreator.nextSibling);
           }
-        })
+        });
+        activeList.uncheckedTodo.forEach((todo) => {
+          const date = new Date(todo.todoDate);
+
+          if(date.getFullYear() == y && date.getMonth() == m &&
+            date.getDate() == i-s+1) {
+            activeList.element.insertBefore(todo.element,
+                todoCreator.nextSibling);
+          }
+        });
       })
     }
 
@@ -487,6 +488,10 @@ document.querySelector('.fa-caret-right').addEventListener('click', () => {
     currentYear++;
   }
   createCalendar(currentYear, currentMonth, activeList);
+})
+
+document.querySelector('.show-all').addEventListener('click', () => {
+  activeList.update();
 })
 
 // easter egg
