@@ -320,6 +320,7 @@ img {
   overflow: hidden;
   max-height: 50px;
   transition: 0.5s ease-in-out;
+  cursor: pointer;
 }
 
 .todo *:not(svg) {
