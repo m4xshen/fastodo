@@ -3,115 +3,56 @@
 <html>
   <head>
     <title>Fastodo</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/44a1dd0b54.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="left-bar">
-      <div class="fastodo">
-        <img class="icon" src="favicon.ico"></img>
-        <span class="name">Fastodo</span>
-      </div>
-      <div class="lists-text">My Lists</div>
-      <div class="lists"></div>
-      <div class="list-creator"><i class="fa-solid fa-plus"></i> New List</div>
+    <h1>Fastodo</h1>
+    <div class="quote">
+      A fast and flexible web-based todo app.
     </div>
+    <a class="start" href="/app">Get Started</a>
+    <div class="quote2">No Account Required</div>
+    <img class="img1" src="https://user-images.githubusercontent.com/74842863/216558507-5b51891e-ff4b-49bb-90cc-744b1c181851.png" width="900">
 
-    <div class="greeting">
-      <div class="flex-row">
-        <div class="date"></div>
-        <div>
-          <div class="greet-message"></div>
-          <div class="gray">What's your plan for today?</div>
-        </div>
-      </div>
-    </div>
-    <div class="flex-row">
-      <div class="todo-list">
-        <div class="todo-creator">
-          <input type="text" class="input-name" placeholder="Add Todo"></input>
-          <div>
-            <label>Date</label>
-            <input type="date" class="todo-creator-date"></input>
-          </div>
-          <div class="todo-priority">
-            <label>Priority</label>
-            <input type="radio" class="high">High</input>
-            <input type="radio" class="mid">Mid</input>
-            <input type="radio" class="low" checked>Low</input>
-          </div>
-          <div>
-            <label>Tag</label>
-            <input type="text" class="todo-creator-tag"></input>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="sort-list">
-          <div class="sort-method-selector">
-            <i class="fa-solid fa-arrow-up-short-wide"></i>
-          </div>
-          <button class="sort-name">Name</button>
-          <button class="sort-date">Date</button>
-          <button class="sort-priority">Priority</button>
-          <button class="sort-tag">Tag</button>
-        </div>
+    <div class="feature">
+      <img class="img2" src="https://user-images.githubusercontent.com/74842863/216583051-f32d2afe-a8f5-4475-9155-77a370dd08c0.png" height="300">
+      <div class="content">
+        <h2>Todo</h2>
+        <p>Press Enter to create todo with 4 properties: Name, Date, Priority and Tag. Click circle to mark it as done.</p>
       </div>
     </div>
 
-    <div class="right-bar">
-      <div class="calendar-nav">
-        <i class="fa-solid fa-caret-left"></i>
-        <div>
-          <div class="year">2022</div>
-          <div class="month"></div>
-        </div>
-        <i class="fa-solid fa-caret-right"></i>
+    <div class="feature">
+      <div class="content">
+        <h2>Multiple List</h2>
+        <p>You can create multiple lists for different purposes: daily todo list, long-term goals list or even project features list.</p>
       </div>
-      <div class="calendar"></div>
-      <div class="show-all">Show All</div>
-      <div class="calendar-todo"></div>
+      <img class="img2" src="https://user-images.githubusercontent.com/74842863/216577970-79096615-1cb7-4514-b888-279b02e223a7.png" height="250">
     </div>
 
-    <div class="congratulations">
-      Congratulations!<br>You finished all tasks!
+    <div class="feature">
+      <img class="img2" src="https://user-images.githubusercontent.com/74842863/216587604-4f1bd4b9-d374-4072-a9cd-b81ded62f3e8.png" height="300">
+      <div class="content">
+        <h2>Calendar View</h2>
+        <p>View your todos with calendar. Click on each date to filter the todos on that day.</p>
+      </div>
     </div>
-    <div class="dim"></div>
 
-    <!-- todo template -->
-    <template class="todo-template">
-      <div class="todo-title">
-        <button class="todo-checkbox" checked="false">
-          <svg width="10" height="10" checked="false">
-            <path stroke="black" fill="transparent" d="M 1 3 L 4 7 L 8 0">
-            </path>
-          </svg>
-        </button>
-        <div class="flex-column">
-          <div class="display-date"></div>
-          <input type="text" class="todo-name" placeholder="Todo Name"></input>
-        </div>
-        <input type="text" class="todo-tag"></input>
+    <div class="height-2 feature">
+      <div class="content">
+        <h2>Sort</h2>
+        <p>You can sort the todos with the properties you just created.</p>
       </div>
-      <div>
-        <label>Date</label>
-        <input type="date" class="todo-date"></input>
-      </div>
-      <div class="todo-priority">
-        <label>Priority</label>
-        <input type="radio" class="high">High</input>
-        <input type="radio" class="mid">Mid</input>
-        <input type="radio" class="low">Low</input>
-        <div class="delete-button"><i class="fa-solid fa-trash-can"></i></div>
-      </div>
-    </template>
+      <img class="img2" src="https://user-images.githubusercontent.com/74842863/216588450-f58e1c78-5885-4988-9a15-d51c66ec8919.png" height="150">
+    </div>
 
-    <template class="list-template">
-      <input type="text"></input>
-      <i class="fa-solid fa-xmark"></i>
-    </template>
+    <div class="cta">You can access all these features without creating an account!</div>
+    <p class="note">Your data will be stored on your device locally and not persisted in any database.</p>
+    <a class="start" href="/app">Get Started</a>
 
-    <script src="script.js"></script>
+    <div class="foot">
+      Made by Max Shen &middot;
+      <a href="https://github.com/m4xshen/fastodo">Hosted on GitHub</a>
+    </div>
   </body>
 </html>

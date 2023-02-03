@@ -5,7 +5,7 @@ const dayName = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const priorityToColor = {'high': '#ebc52d', 'mid': '#ffffda', 'low': '#a2a2a2'}
+const priorityToColor = {'high': '#f2c86b', 'mid': '#ffffda', 'low': '#a2a2a2'}
 
 const date = new Date();
 let currentYear = date.getFullYear(); 
@@ -60,6 +60,12 @@ todoCreator.addEventListener('keydown', (event) => {
 class TodoList {
   constructor(name) {
     this.name = name;
+    this.sortMethod = '.sort-none';
+
+    this.y = null;
+    this.m = null;
+    this.d = null;
+
     this.element = document.querySelector('.todo-list');
     this.uncheckedTodo = [];
     this.checkedTodo = [];
@@ -151,19 +157,6 @@ class TodoList {
         // move the todo from unchecked to checked
         this.uncheckedTodo.splice(this.uncheckedTodo.indexOf(newTodo), 1);
         this.checkedTodo.push(newTodo);
-
-        // congratulate the user when finishing all tasks
-        if(this.uncheckedTodo.length == 0) {
-          const congrats = document.querySelector('.congratulations')
-          const dim = document.querySelector('.dim');
-          congrats.style.top = '200px';
-          dim.style.top = '0';
-
-          setTimeout(function(){
-            congrats.style.top = '-200px';
-            dim.style.top = '-100%';
-          }, 2500);
-        }
       }
       else {
         // move the todo from checked to unchecked
@@ -182,14 +175,46 @@ class TodoList {
 
   // update the todo list
   update() {
+    // update sort button color
+    document.querySelectorAll('.sort-button').forEach(button => {
+      button.style.backgroundColor = '#505050';
+      button.style.color = '#e4e4e4';
+    });
+    document.querySelector(this.sortMethod).style.backgroundColor = '#f2c86b';
+    document.querySelector(this.sortMethod).style.color = '#141414';
+
+    // sort
+    if(this.sortMethod == '.sort-name') {
+      this.uncheckedTodo.sort(sortWithName);
+    }
+    else if(this.sortMethod == '.sort-date') {
+      this.uncheckedTodo.sort(sortWithDate);
+    }
+    else if(this.sortMethod == '.sort-priority') {
+      this.uncheckedTodo.sort(sortWithPriority);
+    }
+    else if(this.sortMethod == '.sort-tag') {
+      this.uncheckedTodo.sort(sortWithTag);
+    }
+
     document.querySelector('.todo-list').innerHTML = '';
     document.querySelector('.todo-list').appendChild(todoCreator);
 
-    this.checkedTodo.forEach((todo) => {
-      this.element.insertBefore(todo.element, todoCreator.nextSibling);
+    activeList.checkedTodo.forEach((todo) => {
+      const date = new Date(todo.todoDate);
+
+      if(this.y == null || (date.getFullYear() == this.y && date.getMonth() == this.m &&
+        date.getDate() == this.d)) {
+        this.element.insertBefore(todo.element, todoCreator.nextSibling);
+      }
     });
-    this.uncheckedTodo.forEach((todo) => {
-      this.element.insertBefore(todo.element, todoCreator.nextSibling);
+    activeList.uncheckedTodo.forEach((todo) => {
+      const date = new Date(todo.todoDate);
+
+      if(this.y == null || (date.getFullYear() == this.y && date.getMonth() == this.m &&
+        date.getDate() == this.d)) {
+        this.element.insertBefore(todo.element, todoCreator.nextSibling);
+      }
     });
 
     createCalendar(currentYear, currentMonth, this);
@@ -324,23 +349,28 @@ function sortWithTag(todoa, todob) {
 }
 
 // event for sort button
+document.querySelector('.sort-none').addEventListener('click', () => {
+  activeList.sortMethod = '.sort-none';
+  activeList.update();
+})
+
 document.querySelector('.sort-name').addEventListener('click', () => {
-  activeList.uncheckedTodo.sort(sortWithName);
+  activeList.sortMethod = '.sort-name';
   activeList.update();
 })
 
 document.querySelector('.sort-date').addEventListener('click', () => {
-  activeList.uncheckedTodo.sort(sortWithDate);
+  activeList.sortMethod = '.sort-date';
   activeList.update();
 })
 
 document.querySelector('.sort-priority').addEventListener('click', () => {
-  activeList.uncheckedTodo.sort(sortWithPriority);
+  activeList.sortMethod = '.sort-priority';
   activeList.update();
 })
 
 document.querySelector('.sort-tag').addEventListener('click', () => {
-  activeList.uncheckedTodo.sort(sortWithTag);
+  activeList.sortMethod = '.sort-tag';
   activeList.update();
 })
 
@@ -366,7 +396,7 @@ const data = JSON.parse(localStorage.getItem('lists'));
 const lists = [];
 
 if(data == undefined || data.length == 0) {
-  lists.push(new TodoList('Today'));
+  lists.push(new TodoList('List 1'));
 }
 else {
   data.forEach((list) => {
@@ -401,8 +431,6 @@ listCreator.addEventListener('click', () => {
 function createCalendar(y, m, todolist) {
   document.querySelector('.month').innerHTML = monthName[m];
   document.querySelector('.year').innerHTML = y;
-  const calendarTodo = document.querySelector('.calendar-todo');
-  calendarTodo.innerHTML = '';
 
   const s = new Date(y, m, 1).getDay(); // start
   const e = new Date(y, m+1, 0).getDate(); // end
@@ -435,26 +463,10 @@ function createCalendar(y, m, todolist) {
 
       // show the todo on that day
       tmp.addEventListener('click', () => {
-        document.querySelector('.todo-list').innerHTML = '';
-        document.querySelector('.todo-list').appendChild(todoCreator);
-        activeList.checkedTodo.forEach((todo) => {
-          const date = new Date(todo.todoDate);
-
-          if(date.getFullYear() == y && date.getMonth() == m &&
-            date.getDate() == i-s+1) {
-            activeList.element.insertBefore(todo.element,
-                todoCreator.nextSibling);
-          }
-        });
-        activeList.uncheckedTodo.forEach((todo) => {
-          const date = new Date(todo.todoDate);
-
-          if(date.getFullYear() == y && date.getMonth() == m &&
-            date.getDate() == i-s+1) {
-            activeList.element.insertBefore(todo.element,
-                todoCreator.nextSibling);
-          }
-        });
+        activeList.y = y;
+        activeList.m = m;
+        activeList.d = i-s+1;
+        activeList.update();
       })
     }
 
@@ -462,7 +474,7 @@ function createCalendar(y, m, todolist) {
     const today = new Date();
     if(y == today.getFullYear() && m == today.getMonth() &&
       i-s+1 == today.getDate()) {
-      tmp.style.backgroundColor = '#ebc52d';
+      tmp.style.backgroundColor = '#f2c86b';
       tmp.style.color = '#141414';
     }
 
@@ -491,6 +503,9 @@ document.querySelector('.fa-caret-right').addEventListener('click', () => {
 })
 
 document.querySelector('.show-all').addEventListener('click', () => {
+  activeList.y = null;
+  activeList.m = null;
+  activeList.d = null;
   activeList.update();
 })
 

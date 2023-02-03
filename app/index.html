@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Fastodo</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/44a1dd0b54.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="left-bar">
+      <div class="fastodo">
+        <img class="icon" src="favicon.ico"></img>
+        <a href="/" class="name">Fastodo </a>
+      </div>
+      <div class="header">My Lists</div>
+      <div class="lists"></div>
+      <div class="list-creator"><i class="fa-solid fa-plus"></i> New List</div>
+    </div>
+
+    <div class="greeting">
+      <div class="flex-row">
+        <div class="date"></div>
+        <div>
+          <div class="greet-message"></div>
+          <div class="gray">What's your plan for today?</div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-row">
+      <div class="todo-list">
+        <div class="todo-creator">
+          <input type="text" class="input-name" placeholder="Add Todo"></input>
+          <div>
+            <label>Date</label>
+            <input type="date" class="todo-creator-date"></input>
+          </div>
+          <div class="todo-priority">
+            <label>Priority</label>
+            <input type="radio" class="high">High</input>
+            <input type="radio" class="mid">Mid</input>
+            <input type="radio" class="low" checked>Low</input>
+          </div>
+          <div>
+            <label>Tag</label>
+            <input type="text" class="todo-creator-tag"></input>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-bar">
+      <div class="calendar-nav">
+        <i class="fa-solid fa-caret-left"></i>
+        <div>
+          <div class="year">2022</div>
+          <div class="month"></div>
+        </div>
+        <i class="fa-solid fa-caret-right"></i>
+      </div>
+      <div class="calendar"></div>
+      <div class="show-all">Show All</div>
+      <div class="header">Sort Method</div>
+      <div class="sort-list">
+        <button class="sort-button sort-none">None</button>
+        <button class="sort-button sort-name">Name</button>
+        <button class="sort-button sort-date">Date</button>
+        <button class="sort-button sort-priority">Priority</button>
+        <button class="sort-button sort-tag">Tag</button>
+      </div>
+    </div>
+
+    <!-- todo template -->
+    <template class="todo-template">
+      <div class="todo-title">
+        <button class="todo-checkbox" checked="false">
+          <svg width="10" height="10" checked="false">
+            <path stroke="black" fill="transparent" d="M 1 3 L 4 7 L 8 0">
+            </path>
+          </svg>
+        </button>
+        <div class="flex-column">
+          <div class="display-date"></div>
+          <input type="text" class="todo-name" placeholder="Todo Name"></input>
+        </div>
+        <input type="text" class="todo-tag"></input>
+      </div>
+      <div>
+        <label>Date</label>
+        <input type="date" class="todo-date"></input>
+      </div>
+      <div class="todo-priority">
+        <label>Priority</label>
+        <input type="radio" class="high">High</input>
+        <input type="radio" class="mid">Mid</input>
+        <input type="radio" class="low">Low</input>
+        <div class="delete-button"><i class="fa-solid fa-trash-can"></i></div>
+      </div>
+    </template>
+
+    <template class="list-template">
+      <input type="text"></input>
+      <i class="fa-solid fa-xmark"></i>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
