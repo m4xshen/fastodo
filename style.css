@@ -55,10 +55,14 @@ img {
   text-align: center;
   border-radius: 15px;
   box-shadow: 10px 10px 20px #909090;
+  display: block;
+  width: auto;
+  height: auto;
 }
 
-.img1 {
+.img-main {
   margin: 50px auto;
+  width: min(900px, 90%);
   display: block;
 }
 
@@ -104,4 +108,25 @@ h2 {
 
 .foot * {
   background-color: #e4e4e4;
+}
+
+.mobile {
+  display: none;
+}
+
+@media screen and (max-width: 900px) {
+
+  .mobile img {
+    max-width: 70%;
+    margin-inline: auto;
+  }
+
+  .mobile {
+    display: block;
+    margin: 0 10% 10% 10%;
+  }
+
+  .computer {
+    display: none;
+  }
 }
