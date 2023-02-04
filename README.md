@@ -16,7 +16,7 @@ A fast and flexible web-based todo list app. No account required.
 
 Create todo with 4 properties: Name, Date, Priority and Tag. Press Enter to add it to list. Click the circle to mark it as done.
 
-### 🗂️ Multiple List
+### 🗂️ Multiple Lists
 
 Create multiple lists for different purposes: daily todo list, long-term goal list or even project feature list.
 
