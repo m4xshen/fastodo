@@ -202,7 +202,7 @@ img {
 
 .sort-button {
   background-color: #505050;
-  font-size: 80%;
+  font-size: 70%;
   border: none;
   border-radius: 6px;
   height: 50px;
@@ -229,7 +229,6 @@ img {
 .todo-creator {
   color: var(--todo-gray);
   background-color: var(--todo-background);
-  /*width: 300px;*/
   line-height: 50px;
   padding: 10px;
   border-radius: 8px;
