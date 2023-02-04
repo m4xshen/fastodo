@@ -3,6 +3,9 @@
 :root {
   --todo-background: #252525;
   --todo-gray: #a2a2a2;
+  --left-bar-width: min(20%, 210px);
+  --right-bar-width: min(30%, 320px);
+  --calendar-side: min(250px, 22vw);
 }
 
 * {
@@ -27,7 +30,7 @@
 }
 
 .greeting {
-  margin: 40px 0 40px 300px;
+  margin: 40px 0 40px min(520px, 20%);
   transition: 0.6s;
 }
 
@@ -37,16 +40,16 @@
 
 .date {
   margin: auto 10px;
-  font-size: 25px;
+  font-size: min(25px, 2vw);
   text-align: center;
 }
 
 .greet-message {
-  font-size: 35px;
+  font-size: min(35px, 3vw);
 }
 
 .gray {
-  font-size: 30px;
+  font-size: min(30px, 3vw);
   color: #909090;
 }
 
@@ -60,7 +63,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 220px;
+  width: var(--left-bar-width);
   height: 100%;
   background-color: var(--todo-background);
 }
@@ -79,13 +82,13 @@
 
 img {
   display: inline;
-  width: 25px;
+  width: min(25px, 3vw);
   margin-left: 5px;
 }
 
 .name {
   text-decoration: none;
-  font-size: 25px;
+  font-size: min(25px, 3vw);
   font-weight: 700;
 }
 
@@ -102,7 +105,7 @@ img {
 }
 
 .lists div {
-  width: 170px;
+  width: min(170px, 80%);
   height: 50px;
   margin: 0 auto;
   line-height: 50px;
@@ -112,7 +115,7 @@ img {
 }
 
 .lists input {
-  width: 140px;
+  width: min(140px, 80%);
   border-style: none;
   outline: none;
   pointer-events: none;
@@ -142,7 +145,7 @@ img {
 }
 
 .list-creator {
-  width: 150px;
+  width: min(150px, 80%);
   height: 50px;
   margin: 0 auto;
   line-height: 20px;
@@ -171,12 +174,15 @@ img {
 
 .sort-list {
   margin-top: 15px;
+  margin-left: 35px;
   background-color: #141414;
   display: flex;
-  align-items: center;
-  height: 70px;
+  flex-direction: column;
+  height: calc(60% - var(--calendar-side));
   border-radius: 8px;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .sort-method-selector {
@@ -199,9 +205,8 @@ img {
   font-size: 12px;
   border: none;
   border-radius: 6px;
-  width: 50px;
   height: 50px;
-  margin-bottom: 10px;
+  width: 50px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
@@ -212,11 +217,11 @@ img {
 }
 
 .todo-list {
-  width: 520px;
-  margin-left: 350px;
+  width: calc(90% - var(--left-bar-width) - var(--right-bar-width));
+  margin-left: calc(5% + var(--left-bar-width));
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items:stretch;
   gap: 15px;
   transition: 0.6s;
 }
@@ -224,7 +229,7 @@ img {
 .todo-creator {
   color: var(--todo-gray);
   background-color: var(--todo-background);
-  width: 500px;
+  /*width: 300px;*/
   line-height: 50px;
   padding: 10px;
   border-radius: 8px;
@@ -251,11 +256,12 @@ img {
 }
 
 .todo-creator-date {
-  padding-left: 70px;
+  margin-left: 20%;
 }
 
 .todo-creator-tag {
-  padding-left: 80px;
+  width: 50%;
+  padding-left: 20%;
 }
 
 .prefix {
@@ -264,6 +270,7 @@ img {
 
 .todo-tag {
   color: var(--todo-gray);
+  width: 30%;
   font-size: 13px;
   text-align: right;
   pointer-events: none;
@@ -275,10 +282,7 @@ img {
 
 .todo-priority {
   display: flex;
-}
-
-.todo-priority input {
-  margin-left: 60px;
+  justify-content: space-between;
 }
 
 .todo-priority div {
@@ -310,7 +314,6 @@ img {
 .todo {
   color: var(--todo-gray);
   background-color: var(--todo-background);
-  width: 500px;
   line-height: 50px;
   padding: 10px;
   border-radius: 8px;
@@ -343,6 +346,7 @@ img {
   border: 1.5px solid var(--todo-gray);
   border-radius: 50%;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .todo-checkbox[checked = 'false'] {
@@ -389,6 +393,7 @@ img {
 .todo-name {
   background-color: var(--todo-background);
   font-weight: 400;
+  width: 400px;
   height: 30px;
   line-height: 30px;
   display: inline-block;
@@ -403,11 +408,15 @@ img {
   color: var(--todo-gray);
 }
 
+.date-name {
+  width: 63%;
+}
+
 .right-bar {
   position: fixed;
   top: 0;
   right: 0;
-  width: 340px;
+  width: var(--right-bar-width);
   padding-top: 20px;
   height: 100%;
   background-color: var(--todo-background);
@@ -418,8 +427,8 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
-  width: 250px;
-  height: 250px;
+  width: var(--calendar-side);
+  height: var(--calendar-side);
   margin: 20px auto 0px auto;
   border-radius: 12px;
   background-color: var(--todo-background);
@@ -433,14 +442,10 @@ img {
   font-weight: 700;
 }
 
-.right-bar .calendar .date {
-  height: 20px;
-}
-
 .right-bar .calendar div {
-  height: 25px;
-  width: 25px;
-  line-height: 25px;
+  height: min(2vw, 25px);
+  width: min(2vw, 25px);
+  line-height: min(2vw, 25px);
   font-size: 13px;
   cursor: pointer;
   border-radius: 50%;
@@ -449,9 +454,10 @@ img {
 
 .right-bar .calendar-nav {
   display: flex;
-  justify-content: space-around;
+  gap: 20px;
   height: 40px;
-  margin-top: 20px;
+  margin: 20px auto;
+  justify-content: center;
 }
 
 .right-bar .calendar-nav > div {
@@ -492,4 +498,49 @@ img {
   opacity: 0.5;
   z-index: 1;
   transition: 1s;
+}
+
+.mobile {
+  display: none;
+}
+
+.mobile p {
+  margin-top: 40%;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.start {
+  margin: 50px auto 5px auto;
+  display: block;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 500;
+  width: 150px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 10px;
+  background-color: #f2c86b;
+  color: #141414;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 500px) {
+  * {
+    background-color: #f4f4f4;
+    color: #141414;
+  }
+
+  body * :not(.mobile, .mobile *) {
+    display: none;
+  }
+
+  .left-bar, .right-bar {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
 }

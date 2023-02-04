@@ -19,13 +19,13 @@ body {
 
 h1 {
   font-weight: 800;
-  font-size: 80px;
+  font-size: min(80px, 20vw);
   text-align: center;
   margin: 80px 0 0 0;
 }
 
 .quote {
-  font-size: 20px;
+  font-size: min(20px, 5vw);
   text-align: center;
   font-weight: 500;
 }
@@ -54,7 +54,7 @@ h1 {
 img {
   text-align: center;
   border-radius: 15px;
-  box-shadow: 10px 10px 20px #909090;
+  box-shadow: 10px 10px 15px #909090;
   display: block;
   width: auto;
   height: auto;
@@ -99,31 +99,49 @@ h2 {
 }
 
 .foot {
+  position: absolute;
   background-color: #e4e4e4;
   margin-top: 100px;
   height: 150px;
+  width: 100%;
+  left: 0;
   text-align: center;
-  line-height: 150px;
 }
 
 .foot * {
   background-color: #e4e4e4;
 }
 
+.vcenter {
+  margin-top: 50px;
+}
+
+.fa-github {
+  font-size: 30px;
+  text-decoration: none;
+}
+
 .mobile {
   display: none;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 700px) {
+  body {
+    margin: 0 10%;
+  }
+
+  img {
+    border-radius: 5px;
+  }
 
   .mobile img {
-    max-width: 70%;
+    max-width: 90%;
     margin-inline: auto;
   }
 
   .mobile {
     display: block;
-    margin: 0 10% 10% 10%;
+    margin: 0 0 10% 0;
   }
 
   .computer {

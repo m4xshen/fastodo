@@ -291,7 +291,6 @@ class Todo {
     this.element.addEventListener('click', (event) => {
       if(event.target != this.todoCheckboxEle) {
         this.element.style.maxHeight = '190px';
-        this.element.style.padding = '15px';
         this.todoNameEle.style.pointerEvents = 'auto'; 
         this.todoTagEle.style.pointerEvents = 'auto'; 
       }
@@ -302,7 +301,6 @@ class Todo {
       if(event.target != this.element &&
         !this.element.contains(event.target)) {
         this.element.style.maxHeight = '50px';
-        this.element.style.padding = '10px';
         this.todoNameEle.style.pointerEvents = 'none'; 
         this.todoTagEle.style.pointerEvents = 'none'; 
 

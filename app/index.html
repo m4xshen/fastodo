@@ -6,8 +6,17 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/44a1dd0b54.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
   </head>
   <body>
+    <div class="mobile">
+      <p>
+        Use fastodo on tablet or computer.<br>
+        The mobile app version is still in progress.
+      </p>
+      <a class="start" href="/fastodo/">Return To Home</a>
+    </div>
+
     <div class="left-bar">
       <div class="fastodo">
         <img class="icon" src="favicon.ico"></img>
@@ -27,24 +36,29 @@
         </div>
       </div>
     </div>
-    <div class="flex-row">
-      <div class="todo-list">
-        <div class="todo-creator">
-          <input type="text" class="input-name" placeholder="Add Todo"></input>
-          <div>
-            <label>Date</label>
-            <input type="date" class="todo-creator-date"></input>
-          </div>
-          <div class="todo-priority">
-            <label>Priority</label>
+    <div class="todo-list">
+      <div class="todo-creator">
+        <input type="text" class="input-name" placeholder="Add Todo"></input>
+        <div>
+          <label>Date</label>
+          <input type="date" class="todo-creator-date"></input>
+        </div>
+        <div class="todo-priority">
+          <label>Priority</label>
+          <span>
             <input type="radio" class="high">High</input>
+          </span>
+          <span>
             <input type="radio" class="mid">Mid</input>
+          </span>
+          <span>
             <input type="radio" class="low" checked>Low</input>
-          </div>
-          <div>
-            <label>Tag</label>
-            <input type="text" class="todo-creator-tag"></input>
-          </div>
+          </span>
+          <span></span>
+        </div>
+        <div>
+          <label>Tag</label>
+          <input type="text" class="todo-creator-tag"></input>
         </div>
       </div>
     </div>
@@ -79,7 +93,7 @@
             </path>
           </svg>
         </button>
-        <div class="flex-column">
+        <div class="flex-column date-name">
           <div class="display-date"></div>
           <input type="text" class="todo-name" placeholder="Todo Name"></input>
         </div>
