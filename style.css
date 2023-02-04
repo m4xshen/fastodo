@@ -30,6 +30,10 @@ h1 {
   font-weight: 500;
 }
 
+.center {
+  text-align: center;
+}
+
 .start {
   margin: 50px auto 5px auto;
   display: block;
@@ -43,6 +47,16 @@ h1 {
   background-color: #f2c86b;
   color: #141414;
   text-decoration: none;
+}
+
+.view {
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.fa-arrow-up-right-from-square {
+  font-size: 13px;
 }
 
 .quote2 {
