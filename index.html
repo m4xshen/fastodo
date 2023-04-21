@@ -1,85 +1,14 @@
 <!DOCTYPE html>
-
-<html lang="en-us">
+<html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RHNF1RCPCL"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-RHNF1RCPCL');
-    </script>
-
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fastodo</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/44a1dd0b54.js" crossorigin="anonymous"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fastodo is a fast and flexible web-based todo list app. You can use it without account."
   </head>
-
-  <body class="bg-amber-50">
-    <h1 class="text-6xl md:text-7xl lg:text-8xl font-extrabold font-sans text-center mt-16 mb-2">Fastodo</h1>
-    <div class="text-lg lg:text-xl font-semibold font-sans text-center mb-10 px-10">
-      A fast and flexible web-based todo list app. No account required.
-    </div>
-    <div class="flex flex-col items-center mb-14">
-      <a class="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl" href="/fastodo/app">Get Started</a>
-      <a class="text-sm font-semibold underline" href="https://github.com/m4xshen/fastodo">
-        View on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </a>
-    </div>
-    <img class="w-10/12 mx-auto rounded-xl mb-14 drop-shadow-md" alt="screenshot of fastodo web-based todo app" src="images/app.png" />
-
-    <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
-      <img src="images/todo.png" alt="screenshot of fastodo's todo creator" class="max-w-sm w-2/3 rounded-lg drop-shadow-md" />
-      <div>
-        <h2 class="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Todo Properties</h2>
-        <p class="max-w-sm lg:w-96">Create todo with 4 properties: Name, Date, Priority and Tag. Press Enter to add it to list. Click the circle to mark it as done.</p>
-      </div>
-    </div>
-
-    <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
-      <div>
-        <h2 class="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Multiple Lists</h2>
-        <p class="max-w-sm lg:w-96">Create multiple lists for different purposes: daily todo list, long-term goal list or even project feature list.</p>
-      </div>
-      <img src="images/list.png" alt="screenshot of fastodo's multiple list feature" class="max-w-xs w-2/3 rounded-lg order-first lg:order-last drop-shadow-md" />
-    </div>
-
-    <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
-      <img src="images/calendar.png" alt="screenshot of fastodo's calendar view feature" class="max-w-xs w-2/3 rounded-lg drop-shadow-md" />
-      <div>
-        <h2 class="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Calendar View</h2>
-        <p class="max-w-sm lg:w-96">View your todos with calendar. The date with todos is highlighted. Click on each date to only show the todos on that day.</p>
-      </div>
-    </div>
-
-    <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
-      <div>
-        <h2 class="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Sorter</h2>
-        <p class="max-w-sm lg:w-96">Sort your todos with the 4 properties. You can also use it under calendar view.</p>
-      </div>
-      <img src="images/sort.png" alt="screenshot of fastodo's sorter feature" class="max-w-sm w-2/3 rounded-lg order-first lg:order-last drop-shadow-md" />
-    </div>
-
-    <p class="text-3xl font-bold text-center mt-20 mx-10 pb-1">You can access all these features without creating an account!</p>
-    <p class="text-center mx-10 mb-8 font-semibold">Your data will be stored on your device locally and not persisted in any database.</p>
-
-    <div class="flex flex-col items-center mb-16">
-      <a class="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl" href="/fastodo/app">Get Started</a>
-      <a class="text-sm font-semibold underline" href="https://github.com/m4xshen/fastodo">
-        View on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </a>
-    </div>
-
-    <footer class="py-8 bg-[#252525] text-white">
-      <div class="text-center">
-        <a href="https://github.com/m4xshen/fastodo" class="fa-brands fa-github"></a><br><br>
-          Made by Max Shen
-      </div>
-    </footer>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
