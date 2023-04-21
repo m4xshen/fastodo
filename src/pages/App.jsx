@@ -25,7 +25,7 @@ const todoList1 = {
       checked: false
     }
   ]
-}
+};
 
 const todoList2 = {
   id: 2,
@@ -40,12 +40,12 @@ const todoList2 = {
       checked: false
     },
   ]
-}
+};
 
 const todoLists = [
   todoList1,
   todoList2
-]
+];
 
 const initTodo = {
   name: '',
@@ -62,45 +62,58 @@ function App() {
   const [todoList, setTodoList] = useState(todoList1);
 
   useEffect(() => {
-    function handleKeyDown(e) {
-      if (e.key==='a' && creatorState==='hidden') {
-        setCreatorState('add');
+    // update original todoLists TODO: use PUT
+    const index = todoLists.findIndex(tl => tl.id === todoList.id);
+    if (index !== -1) {
+      todoLists[index] = { ...todoList };
+    }
+  }, [todoList]);
 
-        // don't type 'a' into input
-        e.preventDefault();
-      } else if (e.key === 'Escape') {
-        setCreatorState('hidden');
-        setDisplayedTodo(initTodo);
-      }
-    };
+  function handleKeyDown(e) {
+    if (e.key==='a' && creatorState==='hidden') {
+      setCreatorState('add');
 
+      // don't type 'a' into input
+      e.preventDefault();
+    } else if (e.key === 'Escape') {
+      setCreatorState('hidden');
+      setDisplayedTodo(initTodo);
+    }
+  };
+
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => { window.removeEventListener('keydown', handleKeyDown); };
   }, [creatorState]);
 
+  const todoCreatorProps = {
+    todoList,
+    setTodoList,
+    creatorState,
+    setCreatorState,
+    displayedTodo,
+    setDisplayedTodo,
+  };
+
+  const leftContainerProps = {
+    todoList,
+    setTodoList,
+    todoLists,
+  };
+
+  const midContainerProps = {
+    todoList,
+    setTodoList,
+    creatorState,
+    setCreatorState,
+    setDisplayedTodo,
+  };
+
   return (
     <div className="font-sans w-screen min-h-screen h-full bg-neutral-900">
-      {creatorState!=='hidden' &&
-        <TodoCreator
-          todoList={todoList}
-          setTodoList={setTodoList}
-          creatorState={creatorState}
-          setCreatorState={setCreatorState}
-          displayedTodo={displayedTodo}
-          setDisplayedTodo={setDisplayedTodo}
-        />
-      }
-      <LeftContainer
-        todoList={todoList}
-        todoLists={todoLists}
-      />
-      <MidContainer
-        todoList={todoList}
-        setTodoList={setTodoList}
-        creatorState={creatorState}
-        setCreatorState={setCreatorState}
-        setDisplayedTodo={setDisplayedTodo}
-      />
+      {creatorState!=='hidden' && <TodoCreator {...todoCreatorProps} />}
+      <LeftContainer {...leftContainerProps} />
+      <MidContainer {...midContainerProps} />
       <RightContainer />
     </div>
   );

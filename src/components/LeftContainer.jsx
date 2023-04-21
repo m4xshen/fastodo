@@ -18,6 +18,9 @@ function LeftContainer(props) {
                 font-semibold transition cursor-pointer group bg-neutral-800
                 ${todoList.id===props.todoList.id && 'bg-neutral-900'}`}
                 key={todoList.id}
+                onClick={() => {
+                  props.setTodoList(todoList);
+                }}
               >
                 <div>
                   {todoList.name}

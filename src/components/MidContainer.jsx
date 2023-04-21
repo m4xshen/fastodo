@@ -29,7 +29,10 @@ function MidContainer(props) {
         >
           +
         </button>
+        {/* display the unchecked todo */}
         { props.todoList.data.filter(todo => !todo.checked).map(mapTodo) }
+
+        {/* display the checked todo */}
         { props.todoList.data.filter(todo => todo.checked).map(mapTodo) }
       </div>
     </>
