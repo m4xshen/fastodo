@@ -37,14 +37,14 @@ function TodoCreator(props) {
     props.setDisplayedTodo(initTodo);
 
     if (props.creatorState === 'add') {
-      props.setTodoList([todo, ...props.todoList]);
+      props.setTodoList({...props.todoList, data:[todo, ...props.todoList.data]});
       setTodo(initTodo);
     } else if (props.creatorState === 'edit') {
-      let newTodoList = props.todoList.map(t => {
+      let newTodoListData = props.todoList.data.map(t => {
         if (t === props.displayedTodo) return todo;
         return t;
       });
-      props.setTodoList(newTodoList);
+      props.setTodoList({...props.todoList, data: newTodoListData});
       props.setCreatorState('hidden');
     }
   }

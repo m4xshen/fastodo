@@ -16,8 +16,8 @@ function Todo(props) {
         className="absolute right-3 top-2
         text-neutral-800 group-hover:text-neutral-300 transition"
         onClick={(e) => {
-          let newTodoList = props.todoList.filter(todo => todo !== props.todo);
-          props.setTodoList(newTodoList);
+          let newTodoListData = props.todoList.data.filter(todo => todo !== props.todo);
+          props.setTodoList({...props.todoList, data: newTodoListData}); // BUG
           e.stopPropagation();
         }}
       >

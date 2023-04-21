@@ -1,9 +1,8 @@
 function Checkbox(props) {
   function handleClick(e) {
-    let newTodoList = props.todoList.filter(t => t !== props.todo);
-    newTodoList.push({...props.todo, checked: !props.todo.checked})
-    props.setTodoList(newTodoList);
-    // TODO: change origin checked
+    let newTodoListData = props.todoList.data.filter(t => t !== props.todo);
+    newTodoListData.push({...props.todo, checked: !props.todo.checked})
+    props.setTodoList({...props.todoList, data: newTodoListData});
 
     // don't open todo creator when user click on checkbox
     e.stopPropagation();
