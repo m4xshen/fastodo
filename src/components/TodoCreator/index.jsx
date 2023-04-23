@@ -79,6 +79,8 @@ function TodoCreator(props) {
             <Priority
               todo={todo}
               setTodo={setTodo}
+              todoList={props.todoList}
+              setTodoList={props.setTodoList}
             />
             <Tags
               todo={todo}

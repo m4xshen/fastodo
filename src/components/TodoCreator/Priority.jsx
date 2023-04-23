@@ -7,6 +7,8 @@ function Priority(props) {
       <div
         className="flex items-center gap-2">
         <Checkbox
+          todo={props.todo}
+          setTodo={props.setTodo}
           priority="high"
           key={'high-' + props.todo.priority}
           checked={props.todo.priority==='high'}
@@ -14,6 +16,8 @@ function Priority(props) {
         />
         <label className="mr-3">High</label>
         <Checkbox
+          todo={props.todo}
+          setTodo={props.setTodo}
           priority="mid"
           key={'mid-'+props.todo.priority}
           checked={props.todo.priority==='mid'}
@@ -21,6 +25,8 @@ function Priority(props) {
         />
         <label className="mr-3">Mid</label>
         <Checkbox
+          todo={props.todo}
+          setTodo={props.setTodo}
           priority="low"
           key={'low-'+props.todo.priority}
           checked={props.todo.priority==='low'}

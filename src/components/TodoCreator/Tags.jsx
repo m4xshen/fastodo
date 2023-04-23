@@ -11,7 +11,6 @@ function Tags(props) {
         value={props.todo.tags}
         onChange={() => { props.setTodo({...props.todo, tags: props.tagsRef.current.value.split(',')}) }}
         onKeyDown={(e) => { if (e.key === "Enter") props.handleSubmit(); }}
-        onFocus={() => { props.setCalActive(false); }}
       />
     </div>
   )
