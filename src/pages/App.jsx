@@ -24,7 +24,8 @@ const todoList1 = {
       tags: ['habits', 'typing'],
       checked: false
     }
-  ]
+  ],
+  sort: null,
 };
 
 const todoList2 = {
@@ -39,7 +40,8 @@ const todoList2 = {
       tags: ['test'],
       checked: false
     },
-  ]
+  ],
+  sort: null,
 };
 
 const todoLists = [
