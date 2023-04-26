@@ -1,4 +1,19 @@
+function sortWithName(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  } else if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
+
 function sortWithDate(a, b) {
+  if (a.dateStart == '') {
+    return 1;
+  } else if (b.dateStart == '') {
+    return -1;
+  }
+
   let dateStartA = new Date(a.dateStart).getTime()
   let dateStartB = new Date(b.dateStart).getTime()
   let dateEndA = new Date(a.dateEnd).getTime()
@@ -17,6 +32,9 @@ function sortWithPriority(a, b) {
     'low': 3,
   };
 
+  if (a.priority == b.priority) {
+    return sortWithDate(a, b);
+  }
   return priorityToNum[a.priority] - priorityToNum[b.priority];
 }
 
@@ -28,6 +46,8 @@ function TodoList(props) {
     uncheckedTodo.sort(sortWithDate);
   } else if (props.todoList.sort == 'priority') {
     uncheckedTodo.sort(sortWithPriority);
+  } else if (props.todoList.sort == 'name') {
+    uncheckedTodo.sort(sortWithName);
   }
 
   return (

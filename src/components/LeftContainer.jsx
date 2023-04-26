@@ -16,7 +16,7 @@ function LeftContainer(props) {
               <div
                 className={`text-white w-44 mx-auto px-2 py-3 rounded-md flex justify-between
                 font-semibold transition cursor-pointer group bg-neutral-800
-                ${todoList.id===props.todoList.id && 'bg-neutral-900'}`}
+                ${todoList.id===props.todoList.id && 'bg-yellow text-neutral-900'}`}
                 key={todoList.id}
                 onClick={() => {
                   props.setTodoList(todoList);
@@ -25,7 +25,10 @@ function LeftContainer(props) {
                 <div>
                   {todoList.name}
                 </div>
-                <button className="text-neutral-300 opacity-0 group-hover:opacity-100 transition">
+                <button className={`text-neutral-900 invisible
+                ${todoList.id===props.todoList.id && 'group-hover:visible'}`}
+                  onClick={() => { alert('delete todo list'); } }
+                >
                   ✕
                 </button>
               </div>

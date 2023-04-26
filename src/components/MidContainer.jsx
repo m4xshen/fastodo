@@ -37,7 +37,7 @@ function MidContainer(props) {
 
   return (
     <>
-      <div className="flex flex-col items-center pt-10 ml-52 xl:ml-0 gap-2 overflow-scroll">
+      <div className="flex flex-col items-center pt-10 ml-52 xl:ml-0 gap-2">
         <div className="w-[35rem] flex gap-3">
           <button
             className="w-auto h-7 rounded-md px-1 py-0
@@ -68,6 +68,12 @@ function MidContainer(props) {
                   value={null}
                 />
                 <SortButton
+                  name="Name"
+                  todoList={props.todoList}
+                  setTodoList={props.setTodoList}
+                  value={'name'}
+                />
+                <SortButton
                   name="Date"
                   todoList={props.todoList}
                   setTodoList={props.setTodoList}
@@ -78,12 +84,6 @@ function MidContainer(props) {
                   todoList={props.todoList}
                   setTodoList={props.setTodoList}
                   value={'priority'}
-                />
-                <SortButton
-                  name="Tag"
-                  todoList={props.todoList}
-                  setTodoList={props.setTodoList}
-                  value={'tag'}
                 />
               </div>
             }
