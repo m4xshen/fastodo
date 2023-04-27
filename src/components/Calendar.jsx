@@ -82,8 +82,11 @@ function Calendar(props) {
                   key={nanoid()} />
                 :
                 <button
-                  className="hover:bg-neutral-900 transition w-10 h-10 inline-block rounded-full text-center"
-                  onClick={() => { console.log(new Date(date.getFullYear(), date.getMonth(), d)); }}
+                  className="hover:bg-neutral-600 transition w-10 h-10 inline-block rounded-full text-center"
+                  onClick={() => {
+                    props.setTodoList({...props.todoList,
+                      filter: new Date(date.getFullYear(), date.getMonth(), d)})
+                  }}
                   key={nanoid()}
                 >
                   {d}

@@ -26,6 +26,7 @@ const todoList1 = {
     }
   ],
   sort: null,
+  filter: null,
 };
 
 const todoList2 = {
@@ -42,6 +43,7 @@ const todoList2 = {
     },
   ],
   sort: null,
+  filter: null,
 };
 
 const todoLists = [
@@ -62,9 +64,10 @@ function App() {
   const [creatorState, setCreatorState] = useState('hidden');
   const [displayedTodo, setDisplayedTodo] = useState(initTodo);
   const [todoList, setTodoList] = useState(todoList1);
+  // TODO: save to local
 
   useEffect(() => {
-    // update original todoLists TODO: use PUT
+    // update original todoLists
     const index = todoLists.findIndex(tl => tl.id === todoList.id);
     if (index !== -1) {
       todoLists[index] = { ...todoList };
@@ -116,7 +119,10 @@ function App() {
       {creatorState!=='hidden' && <TodoCreator {...todoCreatorProps} />}
       <LeftContainer {...leftContainerProps} />
       <MidContainer {...midContainerProps} />
-      <RightContainer />
+      <RightContainer
+        todoList={todoList}
+        setTodoList={setTodoList}
+      />
     </div>
   );
 }

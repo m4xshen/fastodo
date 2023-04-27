@@ -14,9 +14,9 @@ function LeftContainer(props) {
           props.todoLists.map(todoList => {
             return (
               <div
-                className={`text-white w-44 mx-auto px-2 py-3 rounded-md flex justify-between
+                className={`w-44 mx-auto px-2 py-3 rounded-md flex justify-between
                 font-semibold transition cursor-pointer group bg-neutral-800
-                ${todoList.id===props.todoList.id && 'bg-yellow text-neutral-900'}`}
+                ${todoList.id===props.todoList.id ? 'bg-yellow text-neutral-900' : 'text-white'}`}
                 key={todoList.id}
                 onClick={() => {
                   props.setTodoList(todoList);

@@ -9,7 +9,7 @@ function Todo(props) {
       flex items-center gap-3 cursor-pointer group"
       onClick={() => {
         props.setCreatorState('edit');
-        props.setDisplayedTodo(props.todo)
+        props.setDisplayedTodo(props.todo);
       }}
     >
       <button

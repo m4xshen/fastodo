@@ -50,8 +50,41 @@ function TodoList(props) {
     uncheckedTodo.sort(sortWithName);
   }
 
+  if (props.todoList.filter != null) {
+    uncheckedTodo = uncheckedTodo.filter(todo => {
+      const dateStart = new Date(todo.dateStart);
+      dateStart.setHours(0, 0, 0, 0);
+
+      const dateEnd = new Date(todo.dateEnd);
+      dateEnd.setHours(0, 0, 0, 0);
+
+      if (todo.dateStart !== "" && todo.dateEnd !== "") {
+        return dateStart.getTime() <= props.todoList.filter.getTime() &&
+          props.todoList.filter.getTime() <= dateEnd.getTime();
+      } else if (todo.dateStart !== "" && todo.dateEnd === "") {
+        return dateStart.getTime() === props.todoList.filter.getTime();
+      }
+
+      return false;
+    });
+
+    checkedTodo = checkedTodo.filter(todo => {
+      const dateStart = new Date(todo.dateStart);
+      dateStart.setHours(0, 0, 0, 0);
+
+      return dateStart.getTime() == props.todoList.filter.getTime();
+    });
+
+  }
+
   return (
     <>
+      { (uncheckedTodo.length === 0 && checkedTodo.length === 0)
+        &&
+        <div className="text-white pt-10 text-sm">
+          No Data
+        </div>
+      }
       { uncheckedTodo.map(props.mapTodo) }
       { checkedTodo.map(props.mapTodo) }
     </>
