@@ -1,4 +1,15 @@
 import { Link } from "react-router-dom";
+import { nanoid } from "nanoid";
+
+const initTodoList = () => (
+  {
+    id: nanoid(),
+    name: 'New List',
+    data: [],
+    sort: null,
+    filter: null,
+  }
+);
 
 function LeftContainer(props) {
   return (
@@ -36,6 +47,14 @@ function LeftContainer(props) {
           })
         }
       </div>
+      <button
+        className="text-white w-44 px-2 py-3"
+        onClick={() => {
+          props.setTodoLists([...props.todoLists, initTodoList()]);
+        }}
+      >
+        + Add Todo List
+      </button>
     </div>
   );
 }

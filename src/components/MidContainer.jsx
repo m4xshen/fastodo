@@ -48,8 +48,8 @@ function MidContainer(props) {
           >
             + Add Todo
           </button>
-          <button
-            className="w-auto h-7 rounded-md px-1 py-0 relative ml-auto
+          <div
+            className="w-auto h-7 rounded-md px-1 py-0 relative ml-auto cursor-pointer
             text-neutral-300 bg-neutral-900 hover:bg-neutral-800 transition-all"
             onClick={() => {
               setShowSort(true);
@@ -87,7 +87,7 @@ function MidContainer(props) {
                 />
               </div>
             }
-          </button>
+          </div>
         </div>
         <TodoList
           todoList={props.todoList}

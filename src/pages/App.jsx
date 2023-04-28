@@ -3,53 +3,7 @@ import TodoCreator from '../components/TodoCreator/index';
 import LeftContainer from '../components/LeftContainer';
 import MidContainer from '../components/MidContainer';
 import RightContainer from '../components/RightContainer';
-
-const todoList1 = {
-  id: 1,
-  name: 'List 1',
-  data: [
-    {
-      name: 'Calculus HW',
-      priority: 'low',
-      dateStart: '2023-04-21',
-      dateEnd: '',
-      tags: ['homework'],
-      checked: true
-    },
-    {
-      name: 'Monkeytype 10min',
-      priority: 'mid',
-      dateStart: '2023-04-21',
-      dateEnd: '',
-      tags: ['habits', 'typing'],
-      checked: false
-    }
-  ],
-  sort: null,
-  filter: null,
-};
-
-const todoList2 = {
-  id: 2,
-  name: 'List 2',
-  data: [
-    {
-      name: 'Test',
-      priority: 'low',
-      dateStart: '2023-04-21',
-      dateEnd: '',
-      tags: ['test'],
-      checked: false
-    },
-  ],
-  sort: null,
-  filter: null,
-};
-
-const todoLists = [
-  todoList1,
-  todoList2
-];
+import { nanoid } from 'nanoid';
 
 const initTodo = {
   name: '',
@@ -60,18 +14,37 @@ const initTodo = {
   checked: false
 };
 
+const initTodoList = () => (
+  {
+    id: nanoid(),
+    name: 'New List',
+    data: [],
+    sort: null,
+    filter: null,
+  }
+);
+
 function App() {
+  // localStorage.clear();
   const [creatorState, setCreatorState] = useState('hidden');
+  const [todoLists, setTodoLists] = useState(JSON.parse(localStorage.getItem('todoLists')) || [initTodoList()]);
+  const [todoList, setTodoList] = useState(todoLists[0]);
   const [displayedTodo, setDisplayedTodo] = useState(initTodo);
-  const [todoList, setTodoList] = useState(todoList1);
-  // TODO: save to local
 
   useEffect(() => {
-    // update original todoLists
-    const index = todoLists.findIndex(tl => tl.id === todoList.id);
-    if (index !== -1) {
-      todoLists[index] = { ...todoList };
-    }
+    localStorage.setItem('todoLists', JSON.stringify(todoLists));
+  }, [todoLists]);
+
+  useEffect(() => {
+    setTodoLists(...todoLists, todoList);
+
+    const newTodoLists = todoLists.map(tl => {
+      if (tl.id === todoList.id) {
+        return todoList;
+      }
+      return tl;
+    });
+    setTodoLists(newTodoLists);
   }, [todoList]);
 
   function handleKeyDown(e) {
@@ -104,6 +77,7 @@ function App() {
     todoList,
     setTodoList,
     todoLists,
+    setTodoLists,
   };
 
   const midContainerProps = {
