@@ -24,12 +24,12 @@ function Home() {
       <img
         className="w-10/12 mx-auto rounded-xl mb-14 drop-shadow-md"
         alt="screenshot of fastodo web-based todo app"
-        src="src/assets/imgs/app.png"
+        src="/assets/imgs/app.png"
       />
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <img
-          src="src/assets/imgs/todo.png"
+          src="/assets/imgs/todo.png"
           alt="screenshot of fastodo's todo creator"
           className="max-w-sm w-2/3 rounded-lg drop-shadow-md"
         />
@@ -51,7 +51,7 @@ function Home() {
           </p>
         </div>
         <img
-          src="src/assets/imgs/list.png"
+          src="/assets/imgs/list.png"
           alt="screenshot of fastodo's multiple list feature"
           className="max-w-xs w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
@@ -59,7 +59,7 @@ function Home() {
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <img
-          src="src/assets/imgs/calendar.png"
+          src="/assets/imgs/calendar.png"
           alt="screenshot of fastodo's calendar view feature"
           className="max-w-xs w-2/3 rounded-lg drop-shadow-md"
         />
@@ -82,7 +82,7 @@ function Home() {
           </p>
         </div>
         <img
-          src="src/assets/imgs/sort.png"
+          src="/assets/imgs/sort.png"
           alt="screenshot of fastodo's sorter feature"
           className="max-w-sm w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />

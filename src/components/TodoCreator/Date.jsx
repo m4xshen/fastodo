@@ -10,8 +10,11 @@ function DateInput(props) {
           type="date"
           value={props.todo.dateStart}
           onChange={() => {
-            props.setTodo({...props.todo, dateStart: props.dateStartRef.current.value});
-            // TODO: clear the end date if the start date is empty
+            if (props.dateStartRef.current.value === '') {
+              props.setTodo({...props.todo, dateStart: '', dateEnd: ''});
+            } else {
+              props.setTodo({...props.todo, dateStart: props.dateStartRef.current.value});
+            }
           }}
         />
         <div className="self-center text-neutral-400 text-sm">
