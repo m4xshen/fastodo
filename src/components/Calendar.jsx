@@ -84,7 +84,7 @@ function Calendar(props) {
               today.setHours(0, 0, 0, 0);
 
               let buttonColor;
-              if (new Date(activeList.filter).getTime() === new Date(date.getFullYear(), date.getMonth(), d).getTime()) {
+              if (activeList && new Date(activeList.filter).getTime() === new Date(date.getFullYear(), date.getMonth(), d).getTime()) {
                 buttonColor = "bg-yellow text-black"
               } else {
                 buttonColor = "bg-neutral-800";

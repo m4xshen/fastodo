@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import favicon from '/favicon.ico';
 
 const initTodoList = () => (
@@ -15,6 +15,10 @@ const initTodoList = () => (
 
 function LeftContainer(props) {
   const todoListNameRef = useRef(null);
+
+  useEffect(() => {
+    props.setActiveListId(props.todoLists[0].id);
+  }, [props.todoLists]);
 
   return (
     <div className="fixed left-0 top-0 w-52 h-full bg-neutral-800">
@@ -41,7 +45,8 @@ function LeftContainer(props) {
                   ref={todoList.id === props.activeListId ? todoListNameRef : null}
                   type="text"
                   defaultValue={todoList.name}
-                  className="w-36 bg-transparent outline-none cursor-pointer focus:cursor-text"
+                  className={`w-36 bg-transparent outline-none cursor-pointer focus:cursor-text
+                ${todoList.id===props.activeListId ? 'pointer-events-auto' : 'pointer-events-none'}`}
                   onChange={() => {
                     const newTodoLists = props.todoLists.map(todoList => {
                       if (todoList.id === props.activeListId) {
@@ -58,7 +63,6 @@ function LeftContainer(props) {
                   onClick={() => {
                     const newTodoLists = props.todoLists.filter(todoList => todoList.id!==props.activeListId);
                     props.setTodoLists(newTodoLists);
-                    props.setActiveListId(newTodoLists[0].id);
                   }}
                 >
                   ✕
