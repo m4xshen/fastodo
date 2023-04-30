@@ -36,7 +36,7 @@ function Home() {
         <img
           src={todoImg}
           alt="screenshot of fastodo's todo creator"
-          className="max-w-sm w-2/3 rounded-lg drop-shadow-md"
+          className="max-w-md w-2/3 rounded-lg drop-shadow-md"
         />
         <div>
           <h2 className="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Todo Properties</h2>
@@ -58,7 +58,7 @@ function Home() {
         <img
           src={listImg}
           alt="screenshot of fastodo's multiple list feature"
-          className="max-w-xs w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
+          className="max-w-[13em] w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
       </div>
 
@@ -66,7 +66,7 @@ function Home() {
         <img
           src={calendarImg}
           alt="screenshot of fastodo's calendar view feature"
-          className="max-w-xs w-2/3 rounded-lg drop-shadow-md"
+          className="max-w-[17em] w-2/3 rounded-lg drop-shadow-md"
         />
         <div>
           <h2 className="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">
@@ -89,7 +89,7 @@ function Home() {
         <img
           src={sortImg}
           alt="screenshot of fastodo's sorter feature"
-          className="max-w-sm w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
+          className="max-w-[8em] w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
       </div>
 
