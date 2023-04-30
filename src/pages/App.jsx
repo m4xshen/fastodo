@@ -25,7 +25,7 @@ const initTodoList = () => (
 );
 
 function App() {
-  // localStorage.clear();
+  localStorage.clear();
   const [creatorState, setCreatorState] = useState('hidden');
   const [todoLists, setTodoLists] = useState(JSON.parse(localStorage.getItem('todoLists')) || [initTodoList()]);
   const [activeListId, setActiveListId] = useState(todoLists[0].id);
