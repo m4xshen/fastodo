@@ -1,4 +1,9 @@
 import { Link } from 'react-router-dom';
+import appImg from '/assets/app.png';
+import todoImg from '/assets/todo.png';
+import listImg from '/assets/list.png';
+import calendarImg from '/assets/calendar.png';
+import sortImg from '/assets/sort.png';
 
 function Home() {
   return (
@@ -9,7 +14,7 @@ function Home() {
       </div>
       <div className="flex flex-col items-center mb-14">
         <Link
-          to="/app"
+          to="/fastodo/app"
           className="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl"
         >
           Get Started
@@ -24,12 +29,12 @@ function Home() {
       <img
         className="w-10/12 mx-auto rounded-xl mb-14 drop-shadow-md"
         alt="screenshot of fastodo web-based todo app"
-        src="/assets/imgs/app.png"
+        src={appImg}
       />
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <img
-          src="/assets/imgs/todo.png"
+          src={todoImg}
           alt="screenshot of fastodo's todo creator"
           className="max-w-sm w-2/3 rounded-lg drop-shadow-md"
         />
@@ -51,7 +56,7 @@ function Home() {
           </p>
         </div>
         <img
-          src="/assets/imgs/list.png"
+          src={listImg}
           alt="screenshot of fastodo's multiple list feature"
           className="max-w-xs w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
@@ -59,7 +64,7 @@ function Home() {
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <img
-          src="/assets/imgs/calendar.png"
+          src={calendarImg}
           alt="screenshot of fastodo's calendar view feature"
           className="max-w-xs w-2/3 rounded-lg drop-shadow-md"
         />
@@ -82,7 +87,7 @@ function Home() {
           </p>
         </div>
         <img
-          src="/assets/imgs/sort.png"
+          src={sortImg}
           alt="screenshot of fastodo's sorter feature"
           className="max-w-sm w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
@@ -97,7 +102,7 @@ function Home() {
 
       <div className="flex flex-col items-center mb-16">
         <Link
-          to="/app"
+          to="/fastodo/app"
           className="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl"
         >
           Get Started

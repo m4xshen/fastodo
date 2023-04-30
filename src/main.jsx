@@ -7,11 +7,11 @@ import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/fastodo/",
     element: <Home />
   },
   {
-    path: "/app",
+    path: "/fastodo/app",
     element: <App />
   }
 ]);
