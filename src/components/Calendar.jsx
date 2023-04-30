@@ -42,6 +42,10 @@ function Calendar(props) {
     setDate(d);
   }
 
+  const activeList = props.todoLists.filter(todoList => (
+    todoList.id === props.activeListId
+  ))[0];
+
   const content = (
     <div className="rounded-md">
       <div className=" text-white flex justify-around items-center mb-2">
@@ -75,45 +79,52 @@ function Calendar(props) {
         </div>
         {days.map(day => (
           <div key={nanoid()}>
-            {day.map(d => (
-              d === 0 ? 
-                <button
-                  className="w-10 h-10 pointer-events-none"
-                  key={nanoid()} />
-                :
-                <button
-                  className="hover:bg-neutral-600 transition w-10 h-10 inline-block rounded-full text-center"
-                  onClick={() => {
-                    const newTodoLists = props.todoLists.map(todoList => {
-                      if (todoList.id === props.activeListId) {
-                        return {...todoList, filter:
-                          new Date(date.getFullYear(), date.getMonth(), d)};
-                      }
-                      return todoList;
-                    })
-                    props.setTodoLists(newTodoLists);
-                  }}
-                  key={nanoid()}
-                >
-                  {d}
-                </button>
-            ))}
+            {day.map(d => {
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+
+              let buttonColor;
+              if (new Date(activeList.filter).getTime() === new Date(date.getFullYear(), date.getMonth(), d).getTime()) {
+                buttonColor = "bg-yellow text-black"
+              } else {
+                buttonColor = "bg-neutral-800";
+              }
+
+              return (
+                d === 0 ? 
+                  <button
+                    className="w-10 h-10 pointer-events-none"
+                    key={nanoid()} />
+                  :
+                  <button
+                    className={`transition m-1 w-8 h-8 inline-block rounded-full text-center ${buttonColor}`}
+                    onClick={() => {
+                      const newTodoLists = props.todoLists.map(todoList => {
+                        if (todoList.id === props.activeListId) {
+                          return {...todoList, filter:
+                            new Date(date.getFullYear(), date.getMonth(), d)};
+                        }
+                        return todoList;
+                      })
+                      props.setTodoLists(newTodoLists);
+                    }}
+                    key={nanoid()}
+                  >
+                    {d}
+                  </button>
+              )
+            })}
           </div>
         ))}
       </div>
-  </div>
+    </div>
   );
 
   return (
     <>
-      {props.active
-        ? <div className={`flex flex-col p-3 mb-8 rounded-md bg-neutral-900`}>
-          {content}
-        </div>
-        : <div className={`flex flex-col p-3 mb-8 rounded-md bg-neutral-800`}>
-          {content}
-        </div>
-      }
+      <div className={`flex flex-col p-3 rounded-md`}>
+        {content}
+      </div>
     </>
   );
 }
