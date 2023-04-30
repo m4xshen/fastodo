@@ -8,7 +8,7 @@ A fast and flexible web-based todo list app. No account required.
 <a href="https://m4xshen.me/fastodo/app"><strong>App</strong></a>
 </p>
 
-<img style="border-radius:10px;" src="https://user-images.githubusercontent.com/74842863/216558507-5b51891e-ff4b-49bb-90cc-744b1c181851.png">
+<img style="border-radius:10px;" src="https://user-images.githubusercontent.com/74842863/235357485-e41bebb8-ca1f-424b-945d-751200295d07.png">
 
 ## Features
 
