@@ -84,8 +84,14 @@ function Calendar(props) {
                 <button
                   className="hover:bg-neutral-600 transition w-10 h-10 inline-block rounded-full text-center"
                   onClick={() => {
-                    props.setTodoList({...props.todoList,
-                      filter: new Date(date.getFullYear(), date.getMonth(), d)})
+                    const newTodoLists = props.todoLists.map(todoList => {
+                      if (todoList.id === props.activeListId) {
+                        return {...todoList, filter:
+                          new Date(date.getFullYear(), date.getMonth(), d)};
+                      }
+                      return todoList;
+                    })
+                    props.setTodoLists(newTodoLists);
                   }}
                   key={nanoid()}
                 >

@@ -39,18 +39,20 @@ function sortWithPriority(a, b) {
 }
 
 function TodoList(props) {
-  let uncheckedTodo = props.todoList.data.filter(todo => !todo.checked);
-  let checkedTodo = props.todoList.data.filter(todo => todo.checked);
+  const todoList = props.todoLists.filter(todoList => todoList.id === props.activeListId)[0] || props.todoLists[0];
 
-  if (props.todoList.sort == 'date') {
+  let uncheckedTodo = todoList.data.filter(todo => !todo.checked);
+  let checkedTodo = todoList.data.filter(todo => todo.checked);
+
+  if (todoList.sort == 'date') {
     uncheckedTodo.sort(sortWithDate);
-  } else if (props.todoList.sort == 'priority') {
+  } else if (todoList.sort == 'priority') {
     uncheckedTodo.sort(sortWithPriority);
-  } else if (props.todoList.sort == 'name') {
+  } else if (todoList.sort == 'name') {
     uncheckedTodo.sort(sortWithName);
   }
 
-  if (props.todoList.filter != null) {
+  if (todoList.filter != null) {
     uncheckedTodo = uncheckedTodo.filter(todo => {
       const dateStart = new Date(todo.dateStart);
       dateStart.setHours(0, 0, 0, 0);
@@ -59,10 +61,10 @@ function TodoList(props) {
       dateEnd.setHours(0, 0, 0, 0);
 
       if (todo.dateStart !== "" && todo.dateEnd !== "") {
-        return dateStart.getTime() <= props.todoList.filter.getTime() &&
-          props.todoList.filter.getTime() <= dateEnd.getTime();
+        return dateStart.getTime() <= todoList.filter.getTime() &&
+          todoList.filter.getTime() <= dateEnd.getTime();
       } else if (todo.dateStart !== "" && todo.dateEnd === "") {
-        return dateStart.getTime() === props.todoList.filter.getTime();
+        return dateStart.getTime() === todoList.filter.getTime();
       }
 
       return false;
@@ -72,7 +74,7 @@ function TodoList(props) {
       const dateStart = new Date(todo.dateStart);
       dateStart.setHours(0, 0, 0, 0);
 
-      return dateStart.getTime() == props.todoList.filter.getTime();
+      return dateStart.getTime() == todoList.filter.getTime();
     });
 
   }

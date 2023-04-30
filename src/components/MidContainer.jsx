@@ -25,8 +25,9 @@ function MidContainer(props) {
     return (
       <Todo
         todo={todo}
-        todoList={props.todoList}
-        setTodoList={props.setTodoList}
+        todoLists={props.todoLists}
+        setTodoLists={props.setTodoLists}
+        activeListId={props.activeListId}
         key={nanoid()}
         creatorState={props.creatorState}
         setCreatorState={props.setCreatorState}
@@ -63,26 +64,30 @@ function MidContainer(props) {
               >
                 <SortButton
                   name="None"
-                  todoList={props.todoList}
-                  setTodoList={props.setTodoList}
+                  todoLists={props.todoLists}
+                  setTodoLists={props.setTodoLists}
+                  activeListId={props.activeListId}
                   value={null}
                 />
                 <SortButton
                   name="Name"
-                  todoList={props.todoList}
-                  setTodoList={props.setTodoList}
+                  todoLists={props.todoLists}
+                  setTodoLists={props.setTodoLists}
+                  activeListId={props.activeListId}
                   value={'name'}
                 />
                 <SortButton
                   name="Date"
-                  todoList={props.todoList}
-                  setTodoList={props.setTodoList}
+                  todoLists={props.todoLists}
+                  setTodoLists={props.setTodoLists}
+                  activeListId={props.activeListId}
                   value={'date'}
                 />
                 <SortButton
                   name="Priority"
-                  todoList={props.todoList}
-                  setTodoList={props.setTodoList}
+                  todoLists={props.todoLists}
+                  setTodoLists={props.setTodoLists}
+                  activeListId={props.activeListId}
                   value={'priority'}
                 />
               </div>
@@ -90,7 +95,8 @@ function MidContainer(props) {
           </div>
         </div>
         <TodoList
-          todoList={props.todoList}
+          todoLists={props.todoLists}
+          activeListId={props.activeListId}
           mapTodo={mapTodo}
         />
       </div>

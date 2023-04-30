@@ -1,11 +1,18 @@
 function Checkbox(props) {
   function handleClick(e) {
-    if (props.todoList === undefined) { // checkbox in todo creator
+    if (props.todoLists === undefined) { // checkbox in todo creator
       props.setTodo({...props.todo, priority: props.priority});
     } else { // checkbox in todo list
-      let newTodoListData = props.todoList.data.filter(t => t !== props.todo);
-      newTodoListData.push({...props.todo, checked: !props.todo.checked})
-      props.setTodoList({...props.todoList, data: newTodoListData});
+      const newTodoLists = props.todoLists.map(todoList => {
+        if (todoList.id === props.activeListId) {
+          const newTodoListData = todoList.data.filter(t => t !== props.todo);
+          newTodoListData.push({...props.todo, checked: !props.todo.checked});
+
+          return {...todoList, data: newTodoListData};
+        }
+        return todoList;
+      });
+      props.setTodoLists(newTodoLists);
 
       // don't open todo creator when user click on checkbox
       e.stopPropagation();

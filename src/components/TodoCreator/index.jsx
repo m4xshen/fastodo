@@ -37,14 +37,29 @@ function TodoCreator(props) {
     props.setDisplayedTodo(initTodo);
 
     if (props.creatorState === 'add') {
-      props.setTodoList({...props.todoList, data:[todo, ...props.todoList.data]});
+      const newTodoLists = props.todoLists.map(todoList => {
+        if (todoList.id === props.activeListId) {
+          return {...todoList, data: [todo, ...todoList.data]};
+        }
+        return todoList;
+      })
+      props.setTodoLists(newTodoLists);
+
       setTodo(initTodo);
     } else if (props.creatorState === 'edit') {
-      let newTodoListData = props.todoList.data.map(t => {
-        if (t === props.displayedTodo) return todo;
-        return t;
-      });
-      props.setTodoList({...props.todoList, data: newTodoListData});
+      const newTodoLists = props.todoLists.map(todoList => {
+        if (todoList.id === props.activeListId) {
+          const newTodoListData = todoList.data.map(t=> {
+            if (t === props.displayedTodo) {
+              return todo;
+            }
+            return t;
+          });
+          return {...todoList, data: newTodoListData};
+        }
+        return todoList;
+      })
+      props.setTodoLists(newTodoLists);
       props.setCreatorState('hidden');
     }
   }
@@ -79,8 +94,8 @@ function TodoCreator(props) {
             <Priority
               todo={todo}
               setTodo={setTodo}
-              todoList={props.todoList}
-              setTodoList={props.setTodoList}
+              todoLists={props.todoLists}
+              setTodoLists={props.setTodoLists}
             />
             <Tags
               todo={todo}

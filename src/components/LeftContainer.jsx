@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
+import { useRef } from "react";
 
 const initTodoList = () => (
   {
@@ -12,6 +13,8 @@ const initTodoList = () => (
 );
 
 function LeftContainer(props) {
+  const todoListNameRef = useRef(null);
+
   return (
     <div className="fixed left-0 top-0 w-52 h-full bg-neutral-800">
       <div className="mt-2 mb-10 ml-4 flex items-center gap-1">
@@ -27,18 +30,35 @@ function LeftContainer(props) {
               <div
                 className={`w-44 mx-auto px-2 py-3 rounded-md flex justify-between
                 font-semibold transition cursor-pointer group bg-neutral-800
-                ${todoList.id===props.todoList.id ? 'bg-yellow text-neutral-900' : 'text-white'}`}
+                ${todoList.id===props.activeListId ? 'bg-yellow text-neutral-900' : 'text-white'}`}
                 key={todoList.id}
                 onClick={() => {
-                  props.setTodoList(todoList);
+                  props.setActiveListId(todoList.id);
                 }}
               >
-                <div>
-                  {todoList.name}
-                </div>
+                <input
+                  ref={todoList.id === props.activeListId ? todoListNameRef : null}
+                  type="text"
+                  defaultValue={todoList.name}
+                  className="w-36 bg-transparent outline-none cursor-pointer focus:cursor-text"
+                  onChange={() => {
+                    const newTodoLists = props.todoLists.map(todoList => {
+                      if (todoList.id === props.activeListId) {
+                        return {...todoList, name: todoListNameRef.current.value};
+                      }
+                      return todoList;
+                    })
+
+                    props.setTodoLists(newTodoLists);
+                  }}
+                />
                 <button className={`text-neutral-900 invisible
-                ${todoList.id===props.todoList.id && 'group-hover:visible'}`}
-                  onClick={() => { alert('delete todo list'); } }
+                ${todoList.id===props.activeListId && 'group-hover:visible'}`}
+                  onClick={() => {
+                    const newTodoLists = props.todoLists.filter(todoList => todoList.id!==props.activeListId);
+                    props.setTodoLists(newTodoLists);
+                    props.setActiveListId(newTodoLists[0].id);
+                  }}
                 >
                   ✕
                 </button>

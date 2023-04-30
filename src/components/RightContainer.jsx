@@ -10,14 +10,21 @@ function RightContainer(props) {
     >
       <Calendar
         date={today}
-        todoList={props.todoList}
-        setTodoList={props.setTodoList}
+        todoLists={props.todoLists}
+        setTodoLists={props.setTodoLists}
+        activeListId={props.activeListId}
       />
       <div className="w-full flex justify-around">
         <button 
           className="text-white bg-neutral-700 hover:bg-neutral-600 transition rounded-md p-1"
           onClick={() => {
-            props.setTodoList({...props.todoList, filter: null});
+            const newTodoLists = props.todoLists.map(todoList => {
+              if (todoList.id == props.activeListId) {
+                return {...todoList, filter: null};
+              }
+              return todoList;
+            })
+            props.setTodoLists(newTodoLists)
           }}
         >
           Clear Filter

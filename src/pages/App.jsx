@@ -28,32 +28,15 @@ function App() {
   // localStorage.clear();
   const [creatorState, setCreatorState] = useState('hidden');
   const [todoLists, setTodoLists] = useState(JSON.parse(localStorage.getItem('todoLists')) || [initTodoList()]);
-  const [todoList, setTodoList] = useState(todoLists[0]);
+  const [activeListId, setActiveListId] = useState(todoLists[0].id);
   const [displayedTodo, setDisplayedTodo] = useState(initTodo);
 
   useEffect(() => {
     localStorage.setItem('todoLists', JSON.stringify(todoLists));
   }, [todoLists]);
 
-  useEffect(() => {
-    setTodoLists(...todoLists, todoList);
-
-    const newTodoLists = todoLists.map(tl => {
-      if (tl.id === todoList.id) {
-        return todoList;
-      }
-      return tl;
-    });
-    setTodoLists(newTodoLists);
-  }, [todoList]);
-
   function handleKeyDown(e) {
-    if (e.key==='a' && creatorState==='hidden') {
-      setCreatorState('add');
-
-      // don't type 'a' into input
-      e.preventDefault();
-    } else if (e.key === 'Escape') {
+    if (e.key === 'Escape') {
       setCreatorState('hidden');
       setDisplayedTodo(initTodo);
     }
@@ -65,8 +48,9 @@ function App() {
   }, [creatorState]);
 
   const todoCreatorProps = {
-    todoList,
-    setTodoList,
+    todoLists,
+    setTodoLists,
+    activeListId,
     creatorState,
     setCreatorState,
     displayedTodo,
@@ -74,18 +58,25 @@ function App() {
   };
 
   const leftContainerProps = {
-    todoList,
-    setTodoList,
     todoLists,
     setTodoLists,
+    activeListId,
+    setActiveListId,
   };
 
   const midContainerProps = {
-    todoList,
-    setTodoList,
+    todoLists,
+    setTodoLists,
     creatorState,
     setCreatorState,
     setDisplayedTodo,
+    activeListId
+  };
+
+  const rightContainerProps = {
+    todoLists,
+    setTodoLists,
+    activeListId,
   };
 
   return (
@@ -93,10 +84,7 @@ function App() {
       {creatorState!=='hidden' && <TodoCreator {...todoCreatorProps} />}
       <LeftContainer {...leftContainerProps} />
       <MidContainer {...midContainerProps} />
-      <RightContainer
-        todoList={todoList}
-        setTodoList={setTodoList}
-      />
+      <RightContainer {...rightContainerProps} />
     </div>
   );
 }

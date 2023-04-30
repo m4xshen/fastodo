@@ -16,8 +16,15 @@ function Todo(props) {
         className="absolute right-3 top-2
         text-neutral-800 group-hover:text-neutral-300 transition"
         onClick={(e) => {
-          let newTodoListData = props.todoList.data.filter(todo => todo !== props.todo);
-          props.setTodoList({...props.todoList, data: newTodoListData});
+          const newTodoLists = props.todoLists.map(todoList => {
+            if (todoList.id === props.activeListId) {
+              const newTodoListData = todoList.data.filter(todo => todo !== props.todo);
+              return {...todoList, data: newTodoListData};
+            }
+            return todoList;
+          })
+          props.setTodoLists(newTodoLists);
+
           e.stopPropagation();
         }}
       >
@@ -25,8 +32,9 @@ function Todo(props) {
       </button>
       <Checkbox
         todo={props.todo}
-        todoList={props.todoList}
-        setTodoList={props.setTodoList}
+        todoLists={props.todoLists}
+        setTodoLists={props.setTodoLists}
+        activeListId={props.activeListId}
         checked={props.todo.checked}
         priority={props.todo.priority}
       />
