@@ -16,10 +16,6 @@ const initTodoList = () => (
 function LeftContainer(props) {
   const todoListNameRef = useRef(null);
 
-  useEffect(() => {
-    props.setActiveListId(props.todoLists[0].id);
-  }, [props.todoLists]);
-
   return (
     <div className="fixed left-0 top-0 w-52 h-full bg-neutral-800">
       <div className="mt-2 mb-10 ml-4 flex items-center gap-1">
@@ -53,16 +49,19 @@ function LeftContainer(props) {
                         return {...todoList, name: todoListNameRef.current.value};
                       }
                       return todoList;
-                    })
+                    });
 
                     props.setTodoLists(newTodoLists);
                   }}
                 />
-                <button className={`text-neutral-900 invisible
-                ${todoList.id===props.activeListId && 'group-hover:visible'}`}
-                  onClick={() => {
+                <button
+                  className={`text-neutral-900 invisible ${todoList.id===props.activeListId && 'group-hover:visible'}`}
+                  onClick={(e) => {
                     const newTodoLists = props.todoLists.filter(todoList => todoList.id!==props.activeListId);
+                    props.setActiveListId(newTodoLists[0].id);
                     props.setTodoLists(newTodoLists);
+
+                    e.stopPropagation();
                   }}
                 >
                   ✕
