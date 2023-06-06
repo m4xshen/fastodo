@@ -14,7 +14,7 @@ function Home() {
       </div>
       <div className="flex flex-col items-center mb-14">
         <Link
-          to="/fastodo/app"
+          to="/app"
           className="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl"
         >
           Get Started
@@ -102,7 +102,7 @@ function Home() {
 
       <div className="flex flex-col items-center mb-16">
         <Link
-          to="/fastodo/app"
+          to="/app"
           className="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl"
         >
           Get Started

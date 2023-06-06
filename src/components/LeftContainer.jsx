@@ -21,7 +21,7 @@ function LeftContainer(props) {
       <div className="mt-2 mb-10 ml-4 flex items-center gap-1">
         <img className="w-6 h-6" src={favicon}/>
         <h1 className="text-white text-2xl font-bold">
-          <Link to="/fastodo/">Fastodo</Link>
+          <Link to="/">Fastodo</Link>
         </h1>
       </div>
       <div className="flex flex-col gap-1">
