@@ -28,9 +28,13 @@ const initTodoList = () => (
 
 function App() {
   const [creatorState, setCreatorState] = useState('hidden');
-  const [todoLists, setTodoLists] = useState(JSON.parse(localStorage.getItem('todoLists')) || [initTodoList()]);
+  const [todoLists, setTodoLists] = useState([initTodoList()]);
   const [activeListId, setActiveListId] = useState(todoLists[0].id);
   const [displayedTodo, setDisplayedTodo] = useState(initTodo);
+
+  useEffect(() => {
+    setTodoLists(JSON.parse(localStorage.getItem('todoLists')));
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('todoLists', JSON.stringify(todoLists));
