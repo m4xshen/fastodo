@@ -1,8 +1,10 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import TodoCreator from '../components/TodoCreator/index';
-import LeftContainer from '../components/LeftContainer';
-import MidContainer from '../components/MidContainer';
-import RightContainer from '../components/RightContainer';
+import TodoCreator from '../../components/TodoCreator/index';
+import LeftContainer from '../../components/LeftContainer';
+import MidContainer from '../../components/MidContainer';
+import RightContainer from '../../components/RightContainer';
 import { nanoid } from 'nanoid';
 
 const initTodo = {
@@ -25,7 +27,6 @@ const initTodoList = () => (
 );
 
 function App() {
-  // localStorage.clear();
   const [creatorState, setCreatorState] = useState('hidden');
   const [todoLists, setTodoLists] = useState(JSON.parse(localStorage.getItem('todoLists')) || [initTodoList()]);
   const [activeListId, setActiveListId] = useState(todoLists[0].id);

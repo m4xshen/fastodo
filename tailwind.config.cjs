@@ -1,20 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}", // Note the addition of the `app` directory.
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     fontFamily: {
-      sans: [
-        "Inter, sans-serif",
-      ]
+      sans: ["Inter, sans-serif"],
     },
     extend: {
       colors: {
-        yellow: "#f2c86b"
-      }
+        yellow: "#f2c86b",
+      },
     },
   },
   plugins: [],
-}
+};

@@ -1,20 +1,17 @@
-import { Link } from 'react-router-dom';
-import appImg from '/assets/app.png';
-import todoImg from '/assets/todo.png';
-import listImg from '/assets/list.png';
-import calendarImg from '/assets/calendar.png';
-import sortImg from '/assets/sort.png';
+import Link from "next/link";
 
 function Home() {
   return (
     <div className="bg-amber-50">
-      <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold font-sans text-center pt-16 mb-2">Fastodo</h1>
+      <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold font-sans text-center pt-16 mb-2">
+        Fastodo
+      </h1>
       <div className="text-lg lg:text-xl font-semibold font-sans text-center mb-10 px-10">
         A fast and flexible web-based todo list app. No account required.
       </div>
       <div className="flex flex-col items-center mb-14">
         <Link
-          to="/app"
+          href="/app"
           className="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl"
         >
           Get Started
@@ -23,25 +20,29 @@ function Home() {
           className="text-sm font-semibold underline"
           href="https://github.com/m4xshen/fastodo"
         >
-          View on GitHub <i className="fa-solid fa-arrow-up-right-from-square"></i>
+          View on GitHub{" "}
+          <i className="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </div>
       <img
         className="w-10/12 mx-auto rounded-xl mb-14 drop-shadow-md"
         alt="screenshot of fastodo web-based todo app"
-        src={appImg}
+        src="/assets/app.png"
       />
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <img
-          src={todoImg}
+          src="/assets/todo.png"
           alt="screenshot of fastodo's todo creator"
           className="max-w-md w-2/3 rounded-lg drop-shadow-md"
         />
         <div>
-          <h2 className="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Todo Properties</h2>
+          <h2 className="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">
+            Todo Properties
+          </h2>
           <p className="max-w-sm lg:w-96">
-            Create todo with 4 properties: Name, Date, Priority and Tag. Press Enter to add it to list. Click the circle to mark it as done.
+            Create todo with 4 properties: Name, Date, Priority and Tag. Press
+            Enter to add it to list. Click the circle to mark it as done.
           </p>
         </div>
       </div>
@@ -52,11 +53,12 @@ function Home() {
             Multiple Lists
           </h2>
           <p className="max-w-sm lg:w-96">
-            Create multiple lists for different purposes: daily todo list, long-term goal list or even project feature list.
+            Create multiple lists for different purposes: daily todo list,
+            long-term goal list or even project feature list.
           </p>
         </div>
         <img
-          src={listImg}
+          src="/assets/list.png"
           alt="screenshot of fastodo's multiple list feature"
           className="max-w-[13em] w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
@@ -64,7 +66,7 @@ function Home() {
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <img
-          src={calendarImg}
+          src="/assets/calendar.png"
           alt="screenshot of fastodo's calendar view feature"
           className="max-w-[17em] w-2/3 rounded-lg drop-shadow-md"
         />
@@ -73,21 +75,22 @@ function Home() {
             Calendar View
           </h2>
           <p className="max-w-sm lg:w-96">
-            View your todos with calendar. The date with todos is highlighted. Click on each date to only show the todos on that day.</p>
+            View your todos with calendar. The date with todos is highlighted.
+            Click on each date to only show the todos on that day.
+          </p>
         </div>
       </div>
 
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:space-x-10 mb-20 ml-5">
         <div>
-          <h2 className="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">
-            Sorter
-          </h2>
+          <h2 className="w-max text-2xl font-bold mt-4 lg:mt-0 mb-2">Sorter</h2>
           <p className="max-w-sm lg:w-96">
-            Sort your todos with the 4 properties. You can also use it under calendar view.
+            Sort your todos with the 4 properties. You can also use it under
+            calendar view.
           </p>
         </div>
         <img
-          src={sortImg}
+          src="/assets/sort.png"
           alt="screenshot of fastodo's sorter feature"
           className="max-w-[8em] w-2/3 rounded-lg order-first lg:order-last drop-shadow-md"
         />
@@ -97,12 +100,13 @@ function Home() {
         You can access all these features without creating an account!
       </p>
       <p className="text-center mx-10 mb-8 font-semibold">
-        Your data will be stored on your device locally and not persisted in any database.
+        Your data will be stored on your device locally and not persisted in any
+        database.
       </p>
 
       <div className="flex flex-col items-center mb-16">
         <Link
-          to="/app"
+          href="/app"
           className="px-6 py-4 w-max text-xl font-semibold text-center bg-yellow hover:brightness-90 transition rounded-xl"
         >
           Get Started
@@ -111,7 +115,8 @@ function Home() {
           className="text-sm font-semibold underline"
           href="https://github.com/m4xshen/fastodo"
         >
-          View on GitHub <i className="fa-solid fa-arrow-up-right-from-square"></i>
+          View on GitHub{" "}
+          <i className="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </div>
 
@@ -120,12 +125,14 @@ function Home() {
           <a
             href="https://github.com/m4xshen/fastodo"
             className="fa-brands fa-github"
-          /><br /><br />
+          />
+          <br />
+          <br />
           Made by Max Shen
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
 export default Home;

@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { nanoid } from 'nanoid';
-import { useRef, useEffect } from 'react';
-import favicon from '/favicon.ico';
+import { useRef } from 'react';
 
 const initTodoList = () => (
   {
@@ -19,9 +18,9 @@ function LeftContainer(props) {
   return (
     <div className="fixed left-0 top-0 w-52 h-full bg-neutral-800">
       <div className="mt-2 mb-10 ml-4 flex items-center gap-1">
-        <img className="w-6 h-6" src={favicon}/>
+        <img className="w-6 h-6" src="/favicon.ico"/>
         <h1 className="text-white text-2xl font-bold">
-          <Link to="/">Fastodo</Link>
+          <Link href="/">Fastodo</Link>
         </h1>
       </div>
       <div className="flex flex-col gap-1">
